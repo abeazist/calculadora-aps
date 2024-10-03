@@ -35,20 +35,31 @@ export interface Tela {
 }
 
 export interface Teclado {
-  digite(digito: Digito): void;
-  digite(operação: Operação): void;
-  digite(controle: Controle): void;
+  digiteDigito(digito: Digito): void;
+  digiteOperacao(operação: Operação): void;
+  digiteControle(controle: Controle): void;
+
+  definaCpu(cpu: Cpu): void;
+  obtenhaCpu(): Cpu;
 }
 
 export interface Cpu {
-  receba(digito: Digito): void;
-  receba(operação: Operação): void;
-  receba(controle: Controle): void;
+  recebaDigito(digito: Digito): void;
+  recebaOperacao(operação: Operação): void;
+  recebaControle(controle: Controle): void;
   reinicie(): void;
+
+  definaTela(tela: Tela): void;
+  obtenhaTela(): Tela;
 }
 
 export interface Calculadora {
-  tela: Tela;
-  teclado: Teclado;
-  cpu: Cpu;
+  definaTela(tela: Tela): void;
+  obtenhaTela(): Tela;
+
+  definaCpu(cpu: Cpu): void;
+  obtenhaCpu(): Cpu;
+
+  definaTeclado(teclado: Teclado): void;
+  obtenhaTeclado(): Teclado;
 }
