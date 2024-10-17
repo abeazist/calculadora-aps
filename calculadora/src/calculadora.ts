@@ -64,3 +64,16 @@ export interface Calculadora {
   definaTeclado(teclado: Teclado): void;
   obtenhaTeclado(): Teclado;
 }
+
+
+//ANOTACOES
+
+//o operando vai clicar nos digitos e eles seram armazenados na lista1.length
+//quando o operando clicar na virgula a posicao da lista1.length deve ser gravada na lista2
+//se o operando clicar novamente na virgula nao sera possivel adicionar 
+
+//criar um "for"
+//for(d-> D())
+//r=0
+//r=r.10^3+D
+//r=12346-> 12,356
