@@ -30,8 +30,18 @@ export enum Controle {
   IGUAL,
 }
 
+export enum Sinal {
+  POSITIVO,
+  NEGATIVO,
+}
+
+
 export interface Tela {
   mostre(digito: Digito): void;
+  mostreSeparadorDecimal(): void;
+  mostreSinal(sinal: Sinal): void;
+  mostreMemoria(): void;
+  mostreErro(): void;
   limpe(): void;
 }
 
@@ -41,7 +51,7 @@ export interface Teclado {
   digiteControle(controle: Controle): void;
 
   definaCpu(cpu: Cpu): void;
-  obtenhaCpu(): Cpu;
+  obtenhaCpu(): Cpu  | undefined;
 }
 
 export interface Cpu {

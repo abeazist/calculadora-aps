@@ -73,10 +73,14 @@ export default class CpuA4 implements Cpu {
 
             else if (Operação.MULTIPLICAÇÃO)
                 resultado = valor1 * valor2;
+            
             else if (Operação.DIVISÃO)
                 if (valor2 !== 0) {
-                    resultado = valor1 / valor2;
-                }
+                    resultado = valor1 / valor2;}
+                
+            else if (Operação.RAIZ_QUADRADA){
+                resultado = Math.sqrt(valor1)
+            }
         }
         this.tela.limpe();
         this.tela.mostre(resultado);
@@ -168,4 +172,4 @@ export default class CpuA4 implements Cpu {
 
 }
 
-
+console.log(Digito)

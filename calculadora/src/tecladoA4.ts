@@ -1,25 +1,25 @@
-import { Controle, Cpu, Digito, Operação, Teclado,} from "./calculadora";
+import { Controle, Cpu, Digito, Operação, Teclado} from "./calculadora";
 
 export default class TecladoA4 implements Teclado{
-    cpu!: Cpu;
+    private cpu: Cpu | undefined
     
-    constructor(cpu: Cpu){
-        this.definaCpu(cpu);
-    }
+    // constructor(cpu: Cpu){
+    //     this.definaCpu(cpu);
+    // }
     
     digiteDigito(digito: Digito): void {
-        throw new Error("Method not implemented.");
+        this.cpu?.recebaDigito(digito)
     }
     digiteOperacao(operação: Operação): void {
-        throw new Error("Method not implemented.");
+        this.cpu?.recebaOperacao(operação)
     }
     digiteControle(controle: Controle): void {
-        throw new Error("Method not implemented.");
+        this.cpu?.recebaControle(controle)
     }
-    definaCpu(cpu: Cpu): void {
-        this.cpu = cpu;
+    definaCpu(cpu: Cpu  | undefined): void {
+        this.cpu = cpu
     }
-    obtenhaCpu(): Cpu {
+    obtenhaCpu(): Cpu | undefined{
         return this.cpu;
     }
 }

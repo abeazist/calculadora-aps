@@ -1,10 +1,23 @@
-import { Digito, Tela } from ".//calculadora";
+import { Digito, Sinal, Tela } from ".//calculadora";
 
 export default class TelaA4 implements Tela {
+    mostreSeparadorDecimal(): void {
+        throw new Error("Method not implemented.");
+    }
+    mostreSinal(sinal: Sinal): void {
+        throw new Error("Method not implemented.");
+    }
+    mostreMemoria(): void {
+        throw new Error("Method not implemented.");
+    }
+    mostreErro(): void {
+        throw new Error("Method not implemented.");
+    }
     mostre(digito: Digito): void {
+
         switch (digito) {
-            
-            case Digito.ZERO: 
+
+            case Digito.ZERO:
                 console.log('0000\n0 0\n0 0\n0 0\n0000\n');
                 break;
             case Digito.UM:
@@ -42,6 +55,8 @@ export default class TelaA4 implements Tela {
             case Digito.NOVE:
                 console.log('9999\n9  9\n9999\n   9\n   9\n');
                 break;
+            default:
+                console.log("Dígito inválido");
 
         }
         console.log(digito)
