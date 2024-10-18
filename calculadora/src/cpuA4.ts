@@ -10,6 +10,8 @@ export default class CpuA4 implements Cpu {
     operando2: Digito[] = [];
     operacaoCorrente: any; // operação existente depois de se clicar em 
     // reinicie: any;
+    temDecimal: boolean = false; //controlando a virgula
+    
 
     constructor(tela: Tela) {
         this.definaTela(tela);
@@ -134,9 +136,22 @@ export default class CpuA4 implements Cpu {
                 break;
             }
 
-
-
     }
+
+    //ANOTACOES
+
+    //o operando vai clicar nos digitos e eles seram armazenados na lista1.length
+    //quando o operando clicar na virgula a posicao da lista1.length deve ser gravada na lista2
+    //se o operando clicar novamente na virgula nao sera possivel adicionar 
+
+    //criar um "for"
+    //for(d-> D())
+    //r=0
+    //r=r.10^3+D
+    //r=12346-> 12,356
+
+
+//FAZER A SEPARAÇÃOPOR SINAIS TB
     reinicie(): void {
         this.tela.limpe();
         this.tela.mostre(Digito.ZERO);
@@ -152,3 +167,5 @@ export default class CpuA4 implements Cpu {
     }
 
 }
+
+
