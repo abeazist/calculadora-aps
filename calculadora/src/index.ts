@@ -5,10 +5,21 @@
 // tela.mostre(Digito.ZERO);
 
 import { Controle, Digito, Operação } from "./calculadora";
+
+import {TestadorTela } from "./calculadoraTestes"; //TESTE
+
+import { TestadorCpu } from "./calculadoraTestes"; //TESTE
+
 import CpuA4 from "./cpuA4";
 import TelaA4 from "./telaA4";
  
 const tela = new TelaA4()
+
+
+// Testando a TELA
+new TestadorTela(tela).testeTodosNúmeros(); //TESTE
+new TestadorTela(tela).testeTodosSímbolo(); //TESTE
+
 tela.mostre(Digito.ZERO)
 tela.limpe()
 tela.mostre(Digito.UM)
@@ -16,3 +27,10 @@ tela.mostre(Digito.UM)
 const cpu = new CpuA4(tela)
 
 cpu.reinicie()
+
+// Testando a CPU
+//cpu.definaTela(tela);
+new TestadorCpu(cpu).teste123Soma456(); //TESTE
+new TestadorCpu(cpu).teste12Soma34Soma56(); //TESTE
+
+

@@ -1,4 +1,5 @@
 import { Controle, Cpu, Digito, Operação, Tela } from "./calculadora";
+import TelaA4 from "./telaA4";
 
 export default class CpuA4 implements Cpu {
     tela!: Tela;
@@ -6,8 +7,12 @@ export default class CpuA4 implements Cpu {
     // digito!: Digito;
     digitos: Digito[] = [];
     // operacoes: Operação[] = [];
+
+    // operando1: Digito[] = [];
+    // operando2: Digito[] = [];
     operando1: Digito[] = [];
     operando2: Digito[] = [];
+
     operacaoCorrente: any; // operação existente depois de se clicar em 
     // reinicie: any;
     temDecimal: boolean = false; //controlando a virgula
@@ -55,42 +60,92 @@ export default class CpuA4 implements Cpu {
         // this.armazena(digito);
     }
 
+
+
+
+    
+    // calcular(): void {
+    //     if (this.operando1.length === 0 || this.operando2.length === 0 || !this.operacaoCorrente) {
+    //         return; // Não pode calcular sem os dois operandos e uma operação
+    //     }
+        
+    //     const valor1 = Number(this.operando1)
+    //     const valor2 = Number(this.operando2)
+    //     let resultado = Digito.ZERO
+
+    //     if (this.operacaoCorrente) {
+    //         if (Operação.SOMA)
+    //             resultado = valor1 + valor2;
+
+    //         else if (Operação.SUBTRAÇÃO)
+    //             resultado = valor1 - valor2;
+
+    //         else if (Operação.MULTIPLICAÇÃO)
+    //             resultado = valor1 * valor2;
+            
+    //         else if (Operação.DIVISÃO)
+    //             if (valor2 !== 0) {
+    //                 resultado = valor1 / valor2;}
+                
+    //         else if (Operação.RAIZ_QUADRADA){
+    //             resultado = Math.sqrt(valor1)
+    //         }
+    //     }
+
+    //     this.tela.limpe();
+    //     this.tela.mostre(resultado);
+
+    //     // Reinicia operandos e operação corrente
+    //     this.operando1 = [];
+    //     this.operando2 = [];
+    //     this.operacaoCorrente = null;
+
+    // } 
+
+    //TESTANDO!!!!!!!!!!!!!!
+
     calcular(): void {
         if (this.operando1.length === 0 || this.operando2.length === 0 || !this.operacaoCorrente) {
             return; // Não pode calcular sem os dois operandos e uma operação
         }
-        
-        const valor1 = Number(this.operando1)
-        const valor2 = Number(this.operando2)
-        let resultado = Digito.ZERO
-
+    
+        const valor1 = Number(this.operando1.join('')); // Junte os dígitos e converta
+        const valor2 = Number(this.operando2.join('')); // Junte os dígitos e converta
+        let resultado: number = 0; // Iniciar como 0
+    
         if (this.operacaoCorrente) {
-            if (Operação.SOMA)
+            if (this.operacaoCorrente === Operação.SOMA) {
                 resultado = valor1 + valor2;
-
-            else if (Operação.SUBTRAÇÃO)
+            } else if (this.operacaoCorrente === Operação.SUBTRAÇÃO) {
                 resultado = valor1 - valor2;
-
-            else if (Operação.MULTIPLICAÇÃO)
+            } else if (this.operacaoCorrente === Operação.MULTIPLICAÇÃO) {
                 resultado = valor1 * valor2;
-            
-            else if (Operação.DIVISÃO)
+            } else if (this.operacaoCorrente === Operação.DIVISÃO) {
                 if (valor2 !== 0) {
-                    resultado = valor1 / valor2;}
-                
-            else if (Operação.RAIZ_QUADRADA){
-                resultado = Math.sqrt(valor1)
+                    resultado = valor1 / valor2;
+                }
+            } else if (this.operacaoCorrente === Operação.RAIZ_QUADRADA) {
+                resultado = Math.sqrt(valor1);
             }
         }
+    
         this.tela.limpe();
         this.tela.mostre(resultado);
-
+        
         // Reinicia operandos e operação corrente
         this.operando1 = [];
         this.operando2 = [];
         this.operacaoCorrente = null;
-
     }
+    
+
+
+
+
+
+
+
+
 
     armazena(digito: Digito) {
         this.digitos.push(digito)
@@ -172,4 +227,9 @@ export default class CpuA4 implements Cpu {
 
 }
 
-console.log(Digito)
+// console.log(Digito)
+// console.log(Controle)
+// console.log(TelaA4)
+// console.log(Digito.QUATRO)
+// console.log(Operação.SOMA)
+// console.log(Digito.DOIS)
