@@ -6,43 +6,22 @@ export default class CpuA4 implements Cpu {
     controle!: Controle;
     // digito!: Digito;
     digitos: Digito[] = [];
-    // operacoes: Operação[] = [];
-
-    // operando1: Digito[] = [];
-    // operando2: Digito[] = [];
     operando1: Digito[] = [];
     operando2: Digito[] = [];
 
-    operacaoCorrente: any; // operação existente depois de se clicar em 
+    operacaoCorrente: Operação | undefined = undefined; // operação existente depois de se clicar em 
     // reinicie: any;
     temDecimal: boolean = false; //controlando a virgula
-    
+
 
     constructor(tela: Tela) {
         this.definaTela(tela);
     }
 
-    //CÓDIGO NOSSO COMENTADO
-    // recebaDigito(digito: Digito): void {
-    //     // aramazenar o digito
-    //     this.armazena(digito);
-
-    //     //limpar a tela se for o primeiro digito
-    //     if( this.digitos.length == 0) 
-    //         this.tela.limpe()
-
-    //     //mostre o digito
-    //     this.tela.mostre(digito)
-
-
-    //     if(this.recebaOperacao != '')
-    //         this.digitos.push(operando1)
-
-    // }
 
     recebaDigito(digito: Digito): void {
         // Se não houver operação em andamento, armazena no operando1, caso contrário, no operando2
-        if (!this.operacaoCorrente) {
+        if (this.operacaoCorrente === undefined) {
             this.operando1.push(digito);
         } else {
             this.operando2.push(digito);
@@ -56,64 +35,47 @@ export default class CpuA4 implements Cpu {
         // Mostra o dígito na tela
         this.tela.mostre(digito);
 
-        // Armazena o dígito na lista de dígitos geral
-        // this.armazena(digito);
+
     }
 
+    converteNumberToDigit(numero: number): Digito[]{
+        // console.log("transformei")
+        let digitos:Digito[] = []
+        while(numero > 0){
+            let digito = numero%10
+            digitos.push(digito)
+            numero -= digito 
+            numero /= 10
+        }
+        if (digitos.length === 0){
+            digitos.push(Digito.ZERO)
+        }
+        return digitos.reverse()
+    }
 
+    converteDigitoToNumber(digitos:Digito[]):number{
+        let r = 0
+        digitos.forEach(digito => {
+            r = r * 10 +digito
+        });
+        return r
+        // type Digito = number;
 
-
-    
-    // calcular(): void {
-    //     if (this.operando1.length === 0 || this.operando2.length === 0 || !this.operacaoCorrente) {
-    //         return; // Não pode calcular sem os dois operandos e uma operação
-    //     }
+        // const numeroString = this.digitos.join('')
         
-    //     const valor1 = Number(this.operando1)
-    //     const valor2 = Number(this.operando2)
-    //     let resultado = Digito.ZERO
 
-    //     if (this.operacaoCorrente) {
-    //         if (Operação.SOMA)
-    //             resultado = valor1 + valor2;
-
-    //         else if (Operação.SUBTRAÇÃO)
-    //             resultado = valor1 - valor2;
-
-    //         else if (Operação.MULTIPLICAÇÃO)
-    //             resultado = valor1 * valor2;
-            
-    //         else if (Operação.DIVISÃO)
-    //             if (valor2 !== 0) {
-    //                 resultado = valor1 / valor2;}
-                
-    //         else if (Operação.RAIZ_QUADRADA){
-    //             resultado = Math.sqrt(valor1)
-    //         }
-    //     }
-
-    //     this.tela.limpe();
-    //     this.tela.mostre(resultado);
-
-    //     // Reinicia operandos e operação corrente
-    //     this.operando1 = [];
-    //     this.operando2 = [];
-    //     this.operacaoCorrente = null;
-
-    // } 
-
-    //TESTANDO!!!!!!!!!!!!!!
+    }
 
     calcular(): void {
-        if (this.operando1.length === 0 || this.operando2.length === 0 || !this.operacaoCorrente) {
+        if (this.operando1.length === 0 || this.operando2.length === 0 || this.operacaoCorrente === undefined) {
             return; // Não pode calcular sem os dois operandos e uma operação
         }
-    
-        const valor1 = Number(this.operando1.join('')); // Junte os dígitos e converta
-        const valor2 = Number(this.operando2.join('')); // Junte os dígitos e converta
+
+        const valor1 = this.converteDigitoToNumber(this.operando1);  // Junte os dígitos e converta
+        const valor2 = this.converteDigitoToNumber(this.operando2);  // Junte os dígitos e converta
         let resultado: number = 0; // Iniciar como 0
-    
-        if (this.operacaoCorrente) {
+
+        if (this.operacaoCorrente != undefined) {
             if (this.operacaoCorrente === Operação.SOMA) {
                 resultado = valor1 + valor2;
             } else if (this.operacaoCorrente === Operação.SUBTRAÇÃO) {
@@ -128,16 +90,18 @@ export default class CpuA4 implements Cpu {
                 resultado = Math.sqrt(valor1);
             }
         }
-    
+
         this.tela.limpe();
         this.tela.mostre(resultado);
-        
+
+        //passar o resultado para o op1(q precisa ser numero)
+        this.operando1 = this.converteNumberToDigit(resultado)
+
         // Reinicia operandos e operação corrente
-        this.operando1 = [];
         this.operando2 = [];
-        this.operacaoCorrente = null;
+        this.operacaoCorrente = undefined;
     }
-    
+
 
 
 
@@ -166,7 +130,7 @@ export default class CpuA4 implements Cpu {
     // }
     recebaOperacao(operação: Operação): void {
         // Se já existe uma operação corrente, finalize o cálculo atual antes de continuar
-        if (this.operacaoCorrente && this.operando2.length > 0) {
+        if (this.operacaoCorrente != undefined && this.operando2.length > 0) {
             this.calcular();
             // this.controle.IGUAL();  // Execute a operação atual antes de definir a próxima
         }
@@ -193,7 +157,7 @@ export default class CpuA4 implements Cpu {
             case Controle.IGUAL:
                 this.calcular();
                 break;
-            }
+        }
 
     }
 
@@ -210,13 +174,13 @@ export default class CpuA4 implements Cpu {
     //r=12346-> 12,356
 
 
-//FAZER A SEPARAÇÃOPOR SINAIS TB
+    //FAZER A SEPARAÇÃOPOR SINAIS TB
     reinicie(): void {
         this.tela.limpe();
         this.tela.mostre(Digito.ZERO);
         this.operando1 = [];
         this.operando2 = [];
-        this.operacaoCorrente = null;
+        this.operacaoCorrente = undefined;
     }
     definaTela(tela: Tela): void {
         this.tela = tela;

@@ -1,14 +1,14 @@
 export enum Digito {
   ZERO = 0,
-  UM,
-  DOIS,
-  TRÊS,
-  QUATRO,
-  CINCO,
-  SEIS,
-  SETE,
-  OITO,
-  NOVE,
+  UM = 1,
+  DOIS = 2,
+  TRÊS = 3,
+  QUATRO = 4,
+  CINCO = 5,
+  SEIS = 6,
+  SETE = 7,
+  OITO = 8,
+  NOVE = 9,
 }
 
 export enum Operação {
