@@ -96,6 +96,7 @@ export default class CpuA4 implements Cpu {
 
         //passar o resultado para o op1(q precisa ser numero)
         this.operando1 = this.converteNumberToDigit(resultado)
+        console.log(resultado)
 
         // Reinicia operandos e operação corrente
         this.operando2 = [];
