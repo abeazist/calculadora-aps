@@ -38,46 +38,54 @@ export default class CpuA4 implements Cpu {
 
     }
 
-    converteNumberToDigit(numero: number): Digito[]{
+    converteNumberToDigit(numero: number): Digito[] {
         // console.log("transformei")
-        let digitos:Digito[] = []
-        while(numero > 0){
-            let digito = numero%10
+        let digitos: Digito[] = []
+        while (numero > 0) {
+            let digito = numero % 10
             digitos.push(digito)
-            numero -= digito 
+            numero -= digito
             numero /= 10
         }
-        if (digitos.length === 0){
+        if (digitos.length === 0) {
             digitos.push(Digito.ZERO)
         }
         return digitos.reverse()
     }
 
-    converteDigitoToNumber(digitos:Digito[]):number{
+    converteDigitoToNumber(digitos: Digito[]): number {
         let r = 0
         digitos.forEach(digito => {
-            r = r * 10 +digito
+            r = r * 10 + digito
         });
         return r
         // type Digito = number;
 
         // const numeroString = this.digitos.join('')
-        
+
 
     }
 
     calcular(): void {
+        this.reinicie();
         if (this.operando1.length === 0 || this.operando2.length === 0 || this.operacaoCorrente === undefined) {
             return; // Não pode calcular sem os dois operandos e uma operação
         }
 
         const valor1 = this.converteDigitoToNumber(this.operando1);  // Junte os dígitos e converta
+        // const valor2 = this.operando2.length > 0 ? this.converteDigitoToNumber(this.operando2) : 0; 
         const valor2 = this.converteDigitoToNumber(this.operando2);  // Junte os dígitos e converta
         let resultado: number = 0; // Iniciar como 0
 
+
         if (this.operacaoCorrente != undefined) {
+            this.operando1 = this.converteNumberToDigit(resultado);
+            this.operando2 = this.converteNumberToDigit(valor2);
             if (this.operacaoCorrente === Operação.SOMA) {
                 resultado = valor1 + valor2;
+                console.log(resultado)
+                
+
             } else if (this.operacaoCorrente === Operação.SUBTRAÇÃO) {
                 resultado = valor1 - valor2;
             } else if (this.operacaoCorrente === Operação.MULTIPLICAÇÃO) {
@@ -90,17 +98,25 @@ export default class CpuA4 implements Cpu {
                 resultado = Math.sqrt(valor1);
             }
         }
+        // } else {
+        //     this.operando1 = [];
+        //     this.operando2 = [];
+        //     this.operacaoCorrente = undefined;
+
+
+
+        // }
 
         this.tela.limpe();
         this.tela.mostre(resultado);
 
         //passar o resultado para o op1(q precisa ser numero)
-        this.operando1 = this.converteNumberToDigit(resultado)
+        // this.operando1 = this.converteNumberToDigit(resultado)
+ 
         console.log(resultado)
 
         // Reinicia operandos e operação corrente
-        this.operando2 = [];
-        this.operacaoCorrente = undefined;
+        // this.operando2 = [];
     }
 
 
@@ -177,8 +193,8 @@ export default class CpuA4 implements Cpu {
 
     //FAZER A SEPARAÇÃOPOR SINAIS TB
     reinicie(): void {
-        this.tela.limpe();
-        this.tela.mostre(Digito.ZERO);
+        // this.tela.limpe();
+        // this.tela.mostre(Digito.ZERO);
         this.operando1 = [];
         this.operando2 = [];
         this.operacaoCorrente = undefined;

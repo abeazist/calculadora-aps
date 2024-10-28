@@ -2,7 +2,7 @@
   "name": "calculadora-aps",
   "version": "1.0.0",
   "scripts": {
-    "start": "node calculadora/src/calculadoraTestes.ts"
+    "start": "node your-start-file.js"
   },
   "dependencies": {
   }

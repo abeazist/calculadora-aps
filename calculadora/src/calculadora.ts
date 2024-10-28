@@ -7,7 +7,7 @@ export enum Digito {
   CINCO = 5,
   SEIS = 6,
   SETE = 7,
-  OITO = 8,
+  OITO = 8, 
   NOVE = 9,
 }
 
