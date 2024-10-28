@@ -35,17 +35,18 @@ export class TestadorCpu {
     this.cpu = cpu;
   }
 
-  teste123Soma456() {
-    console.log("= Testando 123 + 456 ===========================");
-    [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
-      this.cpu.recebaDigito(element);
-    });
-    this.cpu.recebaOperacao(Operação.SOMA);
-    [Digito.QUATRO, Digito.CINCO, Digito.SEIS].forEach((element) => {
-      this.cpu.recebaDigito(element);
-    });
-    this.cpu.recebaControle(Controle.IGUAL);
-  }
+  // teste123Soma456() {
+  //   console.log("= Testando 123 + 456 ===========================");
+  //   [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+  //     this.cpu.recebaDigito(element);
+  //   });
+  //   this.cpu.recebaOperacao(Operação.SOMA);
+  //   [Digito.QUATRO, Digito.CINCO, Digito.SEIS].forEach((element) => {
+  //     this.cpu.recebaDigito(element);
+  //   });
+  //   this.cpu.recebaControle(Controle.IGUAL);
+    
+  // }
 
   teste12Soma34Soma56() {
     console.log("= Testando 12 + 34 + 56 ===========================");

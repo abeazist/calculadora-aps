@@ -67,25 +67,22 @@ export default class CpuA4 implements Cpu {
     }
 
     calcular(): void {
-        this.reinicie();
+        // this.reinicie()
+        
         if (this.operando1.length === 0 || this.operando2.length === 0 || this.operacaoCorrente === undefined) {
             return; // Não pode calcular sem os dois operandos e uma operação
         }
 
         const valor1 = this.converteDigitoToNumber(this.operando1);  // Junte os dígitos e converta
-        // const valor2 = this.operando2.length > 0 ? this.converteDigitoToNumber(this.operando2) : 0; 
-        const valor2 = this.converteDigitoToNumber(this.operando2);  // Junte os dígitos e converta
+        // const valor2 = this.converteDigitoToNumber(this.operando2);  // Junte os dígitos e converta
+        const valor2 = this.operando2.length > 0 ? this.converteDigitoToNumber(this.operando2) : 0; 
         let resultado: number = 0; // Iniciar como 0
 
-
+        //se tiver uma operação corrente
         if (this.operacaoCorrente != undefined) {
-            this.operando1 = this.converteNumberToDigit(resultado);
-            this.operando2 = this.converteNumberToDigit(valor2);
+        // if (this.operacaoCorrente === undefined) {
             if (this.operacaoCorrente === Operação.SOMA) {
                 resultado = valor1 + valor2;
-                console.log(resultado)
-                
-
             } else if (this.operacaoCorrente === Operação.SUBTRAÇÃO) {
                 resultado = valor1 - valor2;
             } else if (this.operacaoCorrente === Operação.MULTIPLICAÇÃO) {
@@ -97,58 +94,30 @@ export default class CpuA4 implements Cpu {
             } else if (this.operacaoCorrente === Operação.RAIZ_QUADRADA) {
                 resultado = Math.sqrt(valor1);
             }
+            // console.log(resultado)
+            this.tela.limpe();
+            this.tela.mostre(resultado);
+            // console.log(resultado);
+        
+            // Armazena o resultado para operações contínuas
+            this.operando1 = this.converteNumberToDigit(resultado); // O resultado agora é o próximo operando1
+            this.operando2 = []; // Limpa o segundo operando para permitir nova entrada
+            this.operacaoCorrente = undefined; // Reseta a operação para receber uma nova
         }
-        // } else {
-        //     this.operando1 = [];
-        //     this.operando2 = [];
-        //     this.operacaoCorrente = undefined;
-
-
-
-        // }
-
-        this.tela.limpe();
-        this.tela.mostre(resultado);
-
-        //passar o resultado para o op1(q precisa ser numero)
-        // this.operando1 = this.converteNumberToDigit(resultado)
- 
-        console.log(resultado)
-
-        // Reinicia operandos e operação corrente
-        // this.operando2 = [];
-    }
-
-
-
-
-
-
-
-
-
+      
+        } 
 
     armazena(digito: Digito) {
         this.digitos.push(digito)
     }
 
-    //codigo comentado
-    // recebaOperacao(operação: Operação): void {
-    //     //se ja existir uma operação corrente, entao manda o controle igual para a CPU
-    //     if (this.operacoes.length > 1)
-    //         this.controle.IGUAL()
-
-    //         //se clicar em alguma operaçao ja existindo uma operação, guardar a operação existente em uma varivel de operações correntes. depois fazer a soma de opCorrente + digito3
-
-    //     // definir a operação corrente com o vaor da operação que esta chegnado (op corrente é tipo 1+2+3, calcula o 1+2 prea ai calcular o +3)
-    //     this.operacaoCorrente = Digito1 + Digito2
-
-
-    // }
     recebaOperacao(operação: Operação): void {
         // Se já existe uma operação corrente, finalize o cálculo atual antes de continuar
         if (this.operacaoCorrente != undefined && this.operando2.length > 0) {
             this.calcular();
+            
+            
+
             // this.controle.IGUAL();  // Execute a operação atual antes de definir a próxima
         }
 
@@ -156,9 +125,7 @@ export default class CpuA4 implements Cpu {
         this.operacaoCorrente = operação;
     }
 
-    // operacaoCorrente(digito: Digito){
-    //     this
-    // }
+ 
     recebaControle(controle: Controle): void {
         //se o controle for para ligar a calculadora, entao chama o metodo interno que trata ativacao, limpeza e erro(tratar ativaçao)
         //limpe a tela
