@@ -48,6 +48,8 @@ export class TestadorCpu {
     
   // }
 
+
+
   teste12Soma34Soma56() {
     console.log("= Testando 12 + 34 + 56 ===========================");
     [Digito.UM, Digito.DOIS].forEach((element) => {
@@ -60,7 +62,9 @@ export class TestadorCpu {
     this.cpu.recebaOperacao(Operação.SOMA);
     [Digito.CINCO, Digito.SEIS].forEach((element) => {
       this.cpu.recebaDigito(element);
+      
     });
+    this.cpu.memoriaMais();
     this.cpu.recebaControle(Controle.IGUAL);
   }
 }

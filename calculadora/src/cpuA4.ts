@@ -8,6 +8,7 @@ export default class CpuA4 implements Cpu {
     digitos: Digito[] = [];
     operando1: Digito[] = [];
     operando2: Digito[] = [];
+    memoria: number = 0;
 
     operacaoCorrente: Operação | undefined = undefined; // operação existente depois de se clicar em 
     // reinicie: any;
@@ -163,7 +164,7 @@ export default class CpuA4 implements Cpu {
         // this.tela.limpe();
         // this.tela.mostre(Digito.ZERO);
         this.operando1 = [];
-        this.operando2 = [];
+        this.operando2 = [];   
         this.operacaoCorrente = undefined;
     }
     definaTela(tela: Tela): void {
@@ -172,6 +173,25 @@ export default class CpuA4 implements Cpu {
     obtenhaTela(): Tela {
         return this.tela;
     }
+    
+    memoriaMais(): void {
+        const valorAtual = this.converteDigitoToNumber(this.operando1);
+        this.memoria += valorAtual;
+        console.log('M+')
+    }
+
+    memoriaMenos(): void {
+        const valorAtual = this.converteDigitoToNumber(this.operando1);
+        console.log("passando aq")
+        this.memoria -= valorAtual;
+    }
+
+    memoriaLeituraeLiMpeza(): void {
+        this.tela.limpe();
+        this.tela.mostre(this.memoria);
+        this.memoria = 0;
+    }
+
 
 }
 
@@ -181,3 +201,6 @@ export default class CpuA4 implements Cpu {
 // console.log(Digito.QUATRO)
 // console.log(Operação.SOMA)
 // console.log(Digito.DOIS)
+
+// sei la que implementação do cão é essa
+//nem eu :o
