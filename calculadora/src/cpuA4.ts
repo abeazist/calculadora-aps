@@ -14,13 +14,42 @@ export default class CpuA4 implements Cpu {
     // reinicie: any;
     temDecimal: boolean = false; //controlando a virgula
 
+    //SEPARADOR_DECIMAL------------------------------------------------------------------------------------------
+    // private operando1SeparadorDecimal : number =0
+    // private operando2SeparadorDecimal : number =0
+    // private operando2:Operando =new Operando()
+    // private operando1: Operando =new Operando()
+    // private operacaoCorrente: Operacao
+
 
     constructor(tela: Tela) {
         this.definaTela(tela);
     }
 
+    //SEPARADOR_DECIMAL ------------------------------------------------------------------------------------------
+    // class Operando{
+    //     digitos:Digitos[]=[]
+    //     sinal: Sinal
+    // }
+
 
     recebaDigito(digito: Digito): void {
+
+        //SEPARADOR DECIMAL------------------------------------------------------------
+
+        // if (digito === Controle.SEPARADOR_DECIMAL) {
+        //     if (this.temDecimal) {
+        //         return; // Não permite adicionar mais de um separador decimal
+        //     }
+        //     this.temDecimal = true; // Marque que o separador decimal foi usado
+
+
+
+
+
+
+    
+ 
         // Se não houver operação em andamento, armazena no operando1, caso contrário, no operando2
         if (this.operacaoCorrente === undefined) {
             this.operando1.push(digito);
@@ -134,6 +163,11 @@ export default class CpuA4 implements Cpu {
 
  
     recebaControle(controle: Controle): void {
+
+
+
+
+
         //se o controle for para ligar a calculadora, entao chama o metodo interno que trata ativacao, limpeza e erro(tratar ativaçao)
         //limpe a tela
         //mostre o zero na tela
@@ -226,6 +260,8 @@ export default class CpuA4 implements Cpu {
         this.memoria = 0;
     }
 }
+
+
 
 // console.log(Digito)
 // console.log(Controle)
