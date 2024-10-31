@@ -17,19 +17,20 @@ const tela = new TelaA4()
 
 
 // Testando a TELA
-new TestadorTela(tela).testeTodosNúmeros(); //TESTE
-new TestadorTela(tela).testeTodosSímbolo(); //TESTE
+// new TestadorTela(tela).testeTodosNúmeros(); //TESTE
+// new TestadorTela(tela).testeTodosSímbolo(); //TESTE
 
-tela.mostre(Digito.ZERO)
-tela.limpe()
-tela.mostre(Digito.UM)
+// tela.mostre(Digito.ZERO)
+// tela.limpe()
+// tela.mostre(Digito.UM)
 
 const cpu = new CpuA4(tela)
 
+// new TestadorCpu(cpu).testeNumeroNegativo();
 cpu.reinicie()
 
 // Testando a CPU
-//cpu.definaTela(tela);
+cpu.definaTela(tela);
 // new TestadorCpu(cpu).teste123Soma456(); //TESTE
 new TestadorCpu(cpu).teste12Soma34Soma56(); //TESTE
 

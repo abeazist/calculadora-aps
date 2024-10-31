@@ -98,6 +98,8 @@ export default class CpuA4 implements Cpu {
             // console.log(resultado)
             this.tela.limpe();
             this.tela.mostre(resultado);
+            
+        
             // console.log(resultado);
         
             // Armazena o resultado para operações contínuas
