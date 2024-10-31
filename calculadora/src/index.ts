@@ -33,5 +33,6 @@ cpu.reinicie()
 cpu.definaTela(tela);
 // new TestadorCpu(cpu).teste123Soma456(); //TESTE
 new TestadorCpu(cpu).teste12Soma34Soma56(); //TESTE
+// new TestadorCpu(cpu).testeNumeroNegativo();
 
 

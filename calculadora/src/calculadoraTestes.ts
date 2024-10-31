@@ -51,8 +51,10 @@ export class TestadorCpu {
 
   testeNumeroNegativo(){
     console.log("Teste Negativo");
-    [Digito.UM,Digito.ZERO].forEach((element) => {
+    [Digito.UM, Digito.ZERO].forEach((element) => {
       this.cpu.recebaDigito(element);
+      // console.log(Digito)
+      console.log("oi")
     })
     this.cpu.recebaOperacao(Operação.SUBTRAÇÃO);
     [Digito.UM, Digito.DOIS].forEach((element) => {
@@ -65,24 +67,21 @@ export class TestadorCpu {
     console.log("= Testando 12 + 34 + 56 ===========================");
     [Digito.UM, Digito.DOIS].forEach((element) => {
       this.cpu.recebaDigito(element);
-      console.log("teste 1")
     });
     this.cpu.recebaOperacao(Operação.SOMA);
     [Digito.TRÊS, Digito.QUATRO].forEach((element) => {
       this.cpu.recebaDigito(element);
-      console.log('passando para teste 2')
     });
     this.cpu.recebaOperacao(Operação.SOMA);
     [Digito.CINCO, Digito.SEIS].forEach((element) => {
       this.cpu.recebaDigito(element);
-      console.log('passando para teste 3')
-      
     });
-
+    this.cpu.recebaControle(Controle.IGUAL);
+    // this.cpu.recebaControle(Controle.IGUAL);
     console.log('passando para teste 4')
     this.cpu.memoriaMais();
-    this.cpu.recebaControle(Controle.IGUAL);
   }
-}
+  
 
+  }
 
