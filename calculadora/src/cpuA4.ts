@@ -1,14 +1,14 @@
-import { Controle, Cpu, Digito, Operação, Tela } from "./calculadora";
+import { Controle, Cpu, Digito, Operação, Sinal, Tela } from "./calculadora";
 import TelaA4 from "./telaA4";
 
 export default class CpuA4 implements Cpu {
     tela!: Tela;
-    controle!: Controle;
-    // digito!: Digito;
-    digitos: Digito[] = [];
     operando1: Digito[] = [];
+    operando1Sinal: Sinal = Sinal.POSITIVO;
     operando2: Digito[] = [];
+    operando2Sinal: Sinal = Sinal.POSITIVO;
     memoria: number = 0;
+    historioControle: Controle | undefined = undefined;
 
     operacaoCorrente: Operação | undefined = undefined; // operação existente depois de se clicar em 
     // reinicie: any;
@@ -36,11 +36,10 @@ export default class CpuA4 implements Cpu {
         // Mostra o dígito na tela
         this.tela.mostre(digito);
 
-
+        this.historioControle = undefined;
     }
 
-    converteNumberToDigit(numero: number): Digito[] {
-        // console.log("transformei")
+    private converteNumberToDigitos(numero: number): Digito[] {
         let digitos: Digito[] = []
         while (numero > 0) {
             let digito = numero % 10
@@ -54,29 +53,24 @@ export default class CpuA4 implements Cpu {
         return digitos.reverse()
     }
 
-    converteDigitoToNumber(digitos: Digito[]): number {
+    private converteDigitosToNumber(digitos: Digito[], sinal: Sinal): number {
         let r = 0
         digitos.forEach(digito => {
             r = r * 10 + digito
         });
-        return r
-        // type Digito = number;
-
-        // const numeroString = this.digitos.join('')
-
-
+        return r * (sinal==Sinal.NEGATIVO?-1:1);
     }
 
-    calcular(): void {
+    private calcular(): void {
         // this.reinicie()
         
         if (this.operando1.length === 0 || this.operando2.length === 0 || this.operacaoCorrente === undefined) {
             return; // Não pode calcular sem os dois operandos e uma operação
         }
 
-        const valor1 = this.converteDigitoToNumber(this.operando1);  // Junte os dígitos e converta
-        // const valor2 = this.converteDigitoToNumber(this.operando2);  // Junte os dígitos e converta
-        const valor2 = this.operando2.length > 0 ? this.converteDigitoToNumber(this.operando2) : 0; 
+        const valor1 = this.converteDigitosToNumber(this.operando1, this.operando1Sinal);  // Junte os dígitos e converta
+        const valor2 = this.converteDigitosToNumber(this.operando2, this.operando2Sinal);  // Junte os dígitos e converta
+        // const valor2 = this.operando2.length > 0 ? this.converteDigitosToNumber(this.operando2) : 0; 
         let resultado: number = 0; // Iniciar como 0
 
         //se tiver uma operação corrente
@@ -84,6 +78,8 @@ export default class CpuA4 implements Cpu {
         // if (this.operacaoCorrente === undefined) {
             if (this.operacaoCorrente === Operação.SOMA) {
                 resultado = valor1 + valor2;
+
+                // this.operando1
             } else if (this.operacaoCorrente === Operação.SUBTRAÇÃO) {
                 resultado = valor1 - valor2;
             } else if (this.operacaoCorrente === Operação.MULTIPLICAÇÃO) {
@@ -95,24 +91,31 @@ export default class CpuA4 implements Cpu {
             } else if (this.operacaoCorrente === Operação.RAIZ_QUADRADA) {
                 resultado = Math.sqrt(valor1);
             }
-            // console.log(resultado)
-            this.tela.limpe();
-            this.tela.mostre(resultado);
-            
+
+            this.operando1 = this.converteNumberToDigitos(resultado)
+            this.operando1Sinal = resultado>0?Sinal.POSITIVO:Sinal.NEGATIVO;
+
+            this.mostreDigitos(this.operando1, this.operando1Sinal)
+
+            // this.operando1 = this.converteNumberToDigitos(resultado); // O resultado agora é o próximo operando1
+            // this.operando2 = []; // Limpa o segundo operando para permitir nova entrada
+            // this.operacaoCorrente = undefined; // Reseta a operação para receber uma nova
         
             // console.log(resultado);
         
             // Armazena o resultado para operações contínuas
-            this.operando1 = this.converteNumberToDigit(resultado); // O resultado agora é o próximo operando1
-            this.operando2 = []; // Limpa o segundo operando para permitir nova entrada
-            this.operacaoCorrente = undefined; // Reseta a operação para receber uma nova
         }
       
         } 
 
-    armazena(digito: Digito) {
-        this.digitos.push(digito)
+    private mostreDigitos(digitos: Digito[], sinal: Sinal): void{
+        this.tela.limpe()
+        digitos.forEach(digito => {
+            this.tela.mostre(digito)
+        });
+        this.tela.mostreSinal(sinal)
     }
+
 
     recebaOperacao(operação: Operação): void {
         // Se já existe uma operação corrente, finalize o cálculo atual antes de continuar
@@ -126,6 +129,7 @@ export default class CpuA4 implements Cpu {
 
         // Defina a nova operação corrente
         this.operacaoCorrente = operação;
+        this.historioControle = undefined;
     }
 
  
@@ -141,12 +145,27 @@ export default class CpuA4 implements Cpu {
             case Controle.ATIVAÇÃO_LIMPEZA_ERRO:
                 this.reinicie();
                 break;
-            case Controle.IGUAL:
-                this.calcular();
+                case Controle.IGUAL:
+                    this.calcular();
                 break;
+            case Controle.MEMÓRIA_SOMA:
+                this.memoriaMais()
+                break;
+                case Controle.MEMÓRIA_SUBTRAÇÃO:
+                    this.memoriaMenos()
+                    break;
+                    case Controle.MEMÓRIA_LEITURA_LIMPEZA:
+                        if(this.historioControle === Controle.MEMÓRIA_LEITURA_LIMPEZA){
+                            this.memoriaLiMpeza()
+                        }else{
+                            this.memoriaLeitura()
+                        }
+                break;
+                
+            }
+            
+            this.historioControle = controle;
         }
-
-    }
 
     //ANOTACOES
 
@@ -176,25 +195,36 @@ export default class CpuA4 implements Cpu {
         return this.tela;
     }
     
-    memoriaMais(): void {
-        const valorAtual = this.converteDigitoToNumber(this.operando1);
+    private memoriaMais(): void {
+        this.recebaControle(Controle.IGUAL)
+        const valorAtual = this.converteDigitosToNumber(this.operando1, this.operando1Sinal);
         this.memoria += valorAtual;
         console.log('M+')
     }
 
-    memoriaMenos(): void {
-        const valorAtual = this.converteDigitoToNumber(this.operando1);
-        console.log("passando aq")
+    private memoriaMenos(): void {
+        this.recebaControle(Controle.IGUAL)
+        const valorAtual = this.converteDigitosToNumber(this.operando1, this.operando1Sinal);
         this.memoria -= valorAtual;
+        console.log("M-")
     }
 
-    memoriaLeituraeLiMpeza(): void {
-        this.tela.limpe();
-        this.tela.mostre(this.memoria);
+    private memoriaLeitura(): void {
+        if (this.operacaoCorrente === undefined) {
+            this.operando1 = this.converteNumberToDigitos(this.memoria);
+            this.operando1Sinal = this.memoria>=0?Sinal.POSITIVO:Sinal.NEGATIVO;
+            this.mostreDigitos(this.operando1, this.operando1Sinal)
+        } else {
+            this.operando2 = this.converteNumberToDigitos(this.memoria);
+            this.operando2Sinal = this.memoria>=0?Sinal.POSITIVO:Sinal.NEGATIVO
+            this.mostreDigitos(this.operando2, this.operando2Sinal)
+        }
+    }
+
+    private memoriaLiMpeza(): void {
+        this.tela.mostreMemoria();
         this.memoria = 0;
     }
-
-
 }
 
 // console.log(Digito)

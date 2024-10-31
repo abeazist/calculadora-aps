@@ -54,7 +54,6 @@ export class TestadorCpu {
     [Digito.UM, Digito.ZERO].forEach((element) => {
       this.cpu.recebaDigito(element);
       // console.log(Digito)
-      console.log("oi")
     })
     this.cpu.recebaOperacao(Operação.SUBTRAÇÃO);
     [Digito.UM, Digito.DOIS].forEach((element) => {
@@ -79,7 +78,7 @@ export class TestadorCpu {
     this.cpu.recebaControle(Controle.IGUAL);
     // this.cpu.recebaControle(Controle.IGUAL);
     console.log('passando para teste 4')
-    this.cpu.memoriaMais();
+    this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
   }
   
 

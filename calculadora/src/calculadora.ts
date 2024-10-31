@@ -58,11 +58,6 @@ export interface Cpu {
   recebaDigito(digito: Digito): void;
   recebaOperacao(operação: Operação): void;
   recebaControle(controle: Controle): void;
-  memoriaMais(): void;
-  memoriaMenos(): void;
-  memoriaLeituraeLiMpeza(): void;
-  
-
 
   reinicie(): void;
 
