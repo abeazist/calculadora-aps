@@ -144,6 +144,19 @@ export class TestadorCpu {
   //  this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
   //}
   
+  testeRaiz(){
+    console.log("testando raiz");
+    [Digito.UM, Digito.ZERO].forEach((element) => {
+      this.cpu.recebaDigito(element);
+    });
+    // this.cpu.recebaOperacao(Operação.SOMA);
+    // [Digito.QUATRO].forEach((element) => {
+      //   this.cpu.recebaDigito(element);
+      // });
+      this.cpu.recebaOperacao(Operação.RAIZ_QUADRADA);
+    this.cpu.recebaControle(Controle.IGUAL);
+    console.log("passou")
+  }
 
   }
 
