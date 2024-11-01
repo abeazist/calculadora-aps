@@ -205,6 +205,25 @@ export default class CpuA4 implements Cpu {
             }
             
             this.historioControle = controle;
+
+        switch (controle) {
+            case Controle.IGUAL:
+                this.igual()
+                break
+            case Controle.SEPARADOR_DECIMAL:
+                
+              if (this.operacaoCorrente === undefined) {
+                 if(this.operando1.posicaoSeparadorDecimal===0)
+                     this.operando1.posicaoSeparadorDecimal = this.operando1.digitos.length
+ 
+                //this.operando1.definaSeparadorDecimalAgora(); ta no do profess
+              } else {
+                 if(this.operando2.posicaoSeparadorDecimal===0)
+                     this.operando2.posicaoSeparadorDecimal = this.operando2.digitos.length
+                 
+                //this.operando2.definaSeparadorDecimalAgora(); ta no do professor
+              }
+              break;
         }
 
    //não sei se ta certo pq não consigo testar
