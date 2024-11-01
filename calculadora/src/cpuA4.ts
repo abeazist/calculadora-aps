@@ -162,11 +162,9 @@ export default class CpuA4 implements Cpu {
     }
 
  
+
+    
     recebaControle(controle: Controle): void {
-
-
-
-
 
         //se o controle for para ligar a calculadora, entao chama o metodo interno que trata ativacao, limpeza e erro(tratar ativaçao)
         //limpe a tela
@@ -184,6 +182,14 @@ export default class CpuA4 implements Cpu {
                 break;
             case Controle.MEMÓRIA_SOMA:
                 this.memoriaMais()
+                if (this.operacaoCorrente!= undefined) {
+                    
+                    this.memoria = this.converteDigitosToNumber(this.operando1,this.operando1Sinal)
+                    this.tela.limpe()
+                    this.mostreDigitos(this.operando1,this.operando1Sinal)
+                 //   resultado = this.operando1
+    
+                }
                 break;
                 case Controle.MEMÓRIA_SUBTRAÇÃO:
                     this.memoriaMenos()
@@ -193,13 +199,31 @@ export default class CpuA4 implements Cpu {
                             this.memoriaLiMpeza()
                         }else{
                             this.memoriaLeitura()
-                        }
+                        } 
                 break;
                 
             }
             
             this.historioControle = controle;
         }
+
+   //não sei se ta certo pq não consigo testar
+
+        percentue(): void {
+            if (this.operando1.length === 0 || this.operacaoCorrente === undefined) {
+                return; 
+            }
+        
+            let numero1: number = this.converteDigitosToNumber(this.operando1, this.operando1Sinal);
+            let numero2: number = this.converteDigitosToNumber(this.operando2, this.operando2Sinal);
+        
+            let resultado = (numero1 * numero2) / 100;
+        
+            this.operando2 = this.converteNumberToDigitos(resultado); 
+            this.mostreDigitos(this.operando2, this.operando2Sinal); 
+            this.recebaControle(Controle.IGUAL); 
+        }
+        
 
     //ANOTACOES
 
@@ -253,7 +277,7 @@ export default class CpuA4 implements Cpu {
             this.operando2Sinal = this.memoria>=0?Sinal.POSITIVO:Sinal.NEGATIVO
             this.mostreDigitos(this.operando2, this.operando2Sinal)
         }
-    }
+    } 
 
     private memoriaLiMpeza(): void {
         this.tela.mostreMemoria();
@@ -270,5 +294,3 @@ export default class CpuA4 implements Cpu {
 // console.log(Operação.SOMA)
 // console.log(Digito.DOIS)
 
-// sei la que implementação do cão é essa
-//nem eu :o
