@@ -35,19 +35,34 @@ export class TestadorCpu {
     this.cpu = cpu;
   }
 
-  teste123Soma456() {
-    console.log("= Testando 123 + 456 ===========================");
+  //teste123Soma456() {
+  //  console.log("= Testando 123 + 456 ===========================");
+  //  [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+  //    this.cpu.recebaDigito(element);
+  //  });
+  //  this.cpu.recebaOperacao(Operação.SOMA);
+  //  [Digito.QUATRO, Digito.CINCO, Digito.SEIS].forEach((element) => {
+  //    this.cpu.recebaDigito(element);
+  //  });
+  //  this.cpu.recebaControle(Controle.IGUAL);
+  //  
+  //}
+
+  testeMemoria(){
+    console.log("Teste Negativo");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
       this.cpu.recebaDigito(element);
-    });
-    this.cpu.recebaOperacao(Operação.SOMA);
-    [Digito.QUATRO, Digito.CINCO, Digito.SEIS].forEach((element) => {
-      this.cpu.recebaDigito(element);
-    });
-    this.cpu.recebaControle(Controle.IGUAL);
-    
-  }
+      // console.log(Digito)
+    })
+    this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
 
+/*    1,2,3,M+,+,1,=    m=123 e resultado=124
+b) 1,2,3,M+,1,=      m=123 e resultado=1
+c) 1,2,3,M+,1,+,1,=  m=123 e resuiltado=2
+d) 1,2,3,M+,+,1,M+,=  m=247 e resuiltado=124
+e) 1,2,3,=,1,=       m=0 e resultado=1
+  */
+   }
 
   testeNumeroNegativo(){
     console.log("Teste Negativo");
@@ -62,24 +77,24 @@ export class TestadorCpu {
     this.cpu.recebaControle(Controle.IGUAL)
   }
 
-  teste12Soma34Soma56() {
-    console.log("= Testando 12 + 34 + 56 ===========================");
-    [Digito.UM, Digito.DOIS].forEach((element) => {
-      this.cpu.recebaDigito(element);
-    });
-    this.cpu.recebaOperacao(Operação.SOMA);
-    [Digito.TRÊS, Digito.QUATRO].forEach((element) => {
-      this.cpu.recebaDigito(element);
-    });
-    this.cpu.recebaOperacao(Operação.SOMA);
-    [Digito.CINCO, Digito.SEIS].forEach((element) => {
-      this.cpu.recebaDigito(element);
-    });
-    this.cpu.recebaControle(Controle.IGUAL);
-    // this.cpu.recebaControle(Controle.IGUAL);
-    console.log('passando para teste 4')
-    this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
-  }
+  //teste12Soma34Soma56() {
+  //  console.log("= Testando 12 + 34 + 56 ===========================");
+  //  [Digito.UM, Digito.DOIS].forEach((element) => {
+  //    this.cpu.recebaDigito(element);
+  //  });
+  //  this.cpu.recebaOperacao(Operação.SOMA);
+  //  [Digito.TRÊS, Digito.QUATRO].forEach((element) => {
+  //    this.cpu.recebaDigito(element);
+  //  });
+  //  this.cpu.recebaOperacao(Operação.SOMA);
+  //  [Digito.CINCO, Digito.SEIS].forEach((element) => {
+  //    this.cpu.recebaDigito(element);
+  //  });
+  //  this.cpu.recebaControle(Controle.IGUAL);
+  //  // this.cpu.recebaControle(Controle.IGUAL);
+  //  console.log('passando para teste 4')
+  //  this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
+  //}
   
 
   }
