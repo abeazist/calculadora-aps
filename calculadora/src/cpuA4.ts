@@ -183,12 +183,14 @@ export default class CpuA4 implements Cpu {
             case Controle.SEPARADOR_DECIMAL: //aqui tem que usar operando corrente???
                     if (this.operacaoCorrente === undefined){
                         if (!this.operando1PosicaoSeparadorDecimal) {
-                            this.operando1PosicaoSeparadorDecimal = this.operando1.length; // Define a posição do decimal
+                            this.operando1PosicaoSeparadorDecimal = this.operando1.length;
+                            this.tela.mostreSeparadorDecimal() // Define a posição do decimal
                         }
                     }
                     else{
                         if (this.operando2PosicaoSeparadorDecimal) {
-                            this.operando2PosicaoSeparadorDecimal = this.operando2.length; // Define a posição do decimal    
+                            this.operando2PosicaoSeparadorDecimal = this.operando2.length;
+                            this.tela.mostreSeparadorDecimal() // Define a posição do decimal    
                         }
                         break
                 

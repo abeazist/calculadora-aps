@@ -2,10 +2,10 @@ import { Digito, Sinal, Tela } from ".//calculadora";
 
 export default class TelaA4 implements Tela {
     mostreSeparadorDecimal(): void {
-        console.log('exibindo separador')
+        console.log('●')
     }
     mostreSinal(sinal: Sinal): void {
-        console.log('exibindo sinal')
+        console.log('▬')
     }
     mostreMemoria(): void {
         console.log("M   M\nMM MM\nM M M\nM   M\nM   M\n");
