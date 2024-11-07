@@ -89,74 +89,95 @@ export class TestadorCpu {
 
 
 
+  
+  
 
-//   testeNumeroNegativo() {
-//     console.log("Teste Números Negativos");
-//     this.cpu.recebaOperacao(Operação.SUBTRAÇÃO)
-//     this.cpu.recebaDigito(Digito.TRÊS); // 3
+// NUMERO DECIMAL
 
-//     // Testando a entrada de -3 + 5
-    
-//     this.cpu.recebaOperacao(Operação.SOMA); // Começa com a operação de soma
-
-//     // Agora adiciona o número 5
-//     this.cpu.recebaDigito(Digito.CINCO); // 5
-
-//     // Realiza o cálculo
-//     this.cpu.recebaControle(Controle.IGUAL);
-
-//     // Verifica se o resultado está correto
-//     // Resultado esperado: -3 + 5 = 2
-// }
-
-
-
-
-
-  //testeNumeroDecimal(){
+  // testeNumeroDecimal(){
   //  console.log("Teste Números Decimais");
   //  this.cpu.recebaDigito(Digito.UM); // 1
   //  this.cpu.recebaControle(Controle.SEPARADOR_DECIMAL); // Adiciona separador decimal
   //  this.cpu.recebaDigito(Digito.CINCO);
   //  this.cpu.recebaDigito(Digito.DOIS) // 5
-//
-//
-  //}
+
+
+  // }
 
 
 
+  // TESTE SOMA
+  
   //teste12Soma34Soma56() {
-  //  console.log("= Testando 12 + 34 + 56 ===========================");
+    //  console.log("= Testando 12 + 34 + 56 ===========================");
   //  [Digito.UM, Digito.DOIS].forEach((element) => {
   //    this.cpu.recebaDigito(element);
   //  });
-  //  this.cpu.recebaOperacao(Operação.SOMA);
   //  [Digito.TRÊS, Digito.QUATRO].forEach((element) => {
-  //    this.cpu.recebaDigito(element);
-  //  });
-  //  this.cpu.recebaOperacao(Operação.SOMA);
-  //  [Digito.CINCO, Digito.SEIS].forEach((element) => {
-  //    this.cpu.recebaDigito(element);
-  //  });
-  //  this.cpu.recebaControle(Controle.IGUAL);
-  //  // this.cpu.recebaControle(Controle.IGUAL);
-  //  console.log('passando para teste 4')
-  //  this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
-  //}
+    //    this.cpu.recebaDigito(element);
+    //  });
+    //  this.cpu.recebaOperacao(Operação.SOMA);
+    //  [Digito.CINCO, Digito.SEIS].forEach((element) => {
+      //    this.cpu.recebaDigito(element);
+      //  });
+      //  this.cpu.recebaControle(Controle.IGUAL);
+      //  // this.cpu.recebaControle(Controle.IGUAL);
+      //  console.log('passando para teste 4')
+      //  this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
+      //}
+      
+      // TESTE RAIZ
+      
+      testeRaiz(){
+        console.log("testando raiz");
+        [Digito.NOVE].forEach((element) => {
+          this.cpu.recebaDigito(element);
+        });
+        this.cpu.recebaOperacao(Operação.RAIZ_QUADRADA);
+        this.cpu.recebaControle(Controle.IGUAL);
+        console.log("passou")
+      }
+      
+      
+//       // Testando a operação de porcentagem
+//       testePorcentagem() {
+//         console.log("= Testando porcentagem ===========================");
+        
+//         // Primeiro número: 50
+//         this.cpu.recebaDigito(Digito.CINCO);  // 5
+//         this.cpu.recebaDigito(Digito.ZERO);   // 0
+        
+//         // Operação de porcentagem: 50%
+//         this.cpu.recebaOperacao(Operação.PERCENTUAL);
+        
+//   // Segundo número: 100
+//   this.cpu.recebaDigito(Digito.CINCO);  // 1
+//   this.cpu.recebaDigito(Digito.ZERO);   // 0
   
-  testeRaiz(){
-    console.log("testando raiz");
-    [Digito.UM, Digito.ZERO].forEach((element) => {
-      this.cpu.recebaDigito(element);
-    });
-    // this.cpu.recebaOperacao(Operação.SOMA);
-    // [Digito.QUATRO].forEach((element) => {
-      //   this.cpu.recebaDigito(element);
-      // });
-      this.cpu.recebaOperacao(Operação.RAIZ_QUADRADA);
-    this.cpu.recebaControle(Controle.IGUAL);
-    console.log("passou")
-  }
+//   // Calculando o resultado (igual)
+//   this.cpu.recebaControle(Controle.IGUAL);
+  
 
-  }
+// }
+
+
+
+testeNumeroNegativo() {
+  console.log("Teste de Números Negativos");
+
+  // Testando a entrada de -3 + 5
+  // O primeiro número será negativo
+  this.cpu.recebaDigito(Digito.TRÊS); // 3
+  this.cpu.recebaOperacao(Operação.SUBTRAÇÃO); // O número deve ser negativo
+
+  // Agora adiciona o número 5
+  this.cpu.recebaDigito(Digito.CINCO); // 5
+
+  // Realiza o cálculo
+  this.cpu.recebaControle(Controle.IGUAL);
+
+  // Esperado: -3 + 5 = 2
+}
+
+}
 

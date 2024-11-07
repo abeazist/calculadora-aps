@@ -11,51 +11,26 @@ export default class CpuA4 implements Cpu {
     operando2PosicaoSeparadorDecimal: number = 0;
     memoria: number = 0;
     historioControle: Controle | undefined = undefined;
-    
+    operacaoCorrente: Operação | undefined = undefined; 
 
-    //-------SEPARADOR DECIMAL--------
-    //criar uma classe (é preciso mesmo criar uma?) que contenha um atributo posicaoSeparadorDecimal que armazene a posicao da virgula, e inicia em 0 pois não há uma virgula ainda
-    // temDecimal: boolean = false; //controlando a virgula
-
-
-    
-
-    operacaoCorrente: Operação | undefined = undefined; // operação existente depois de se clicar em 
-    // reinicie: any;
 
     constructor(tela: Tela) {
         this.definaTela(tela);
     }
     
     
-    //---SEPARADPR DECMAL ---
-    //é preciso definir um metodo definaSeparadorDecimalAgora(), Este método verifica se posicaoSeparadorDecimal já foi definido
-    //Se não foi, ele define a posição do separador decimal como o comprimento atual da lista de dígitos (this.digitos.length)
-    
-    // if (posicao)
-    //     return (r/10 **20 - 0 )
-    // else:
-    //     return r
-
-
-
-
-
     recebaDigito(digito: Digito): void {
 
-        // Se não houver operação em andamento, armazena no operando1, caso contrário, no operando2
         if (this.operacaoCorrente === undefined) {
             this.operando1.push(digito);
         } else {
             this.operando2.push(digito);
         }
 
-        // Limpa a tela na primeira digitação
+       
         if (this.operando1.length === 1 || this.operando2.length === 1) {
             this.tela.limpe();
         }
-
-        // Mostra o dígito na tela
         this.tela.mostre(digito);
 
         this.historioControle = undefined;
@@ -78,36 +53,29 @@ export default class CpuA4 implements Cpu {
     private converteDigitosToNumber(digitos: Digito[], sinal: Sinal, posicaoSeparadorDecimal:number): number {
         let resultado = 0
         digitos.forEach((digito) => {
-            resultado = resultado * 10 + digito; //movimentaçao da casa decimal
+            resultado = resultado * 10 + digito; 
           });
 
           resultado = resultado * (sinal==Sinal.NEGATIVO?-1:1)
           if (posicaoSeparadorDecimal){
-              return resultado / (10 ** (digitos.length - posicaoSeparadorDecimal)); //é onde a posição do separador decimal é aplicada
+              return resultado / (10 ** (digitos.length - posicaoSeparadorDecimal));
           } else{
               return resultado
           } 
     }
 
     private calcular(): void {
-        // this.reinicie()
-        
         if (this.operando1.length === 0 || this.operando2.length === 0 || this.operacaoCorrente === undefined) {
-            return; // Não pode calcular sem os dois operandos e uma operação
+            return; 
         }
-
-        const valor1 = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);  // Junte os dígitos e converta
-        const valor2 = this.converteDigitosToNumber(this.operando2, this.operando2Sinal, this.operando2PosicaoSeparadorDecimal);  // Junte os dígitos e converta
-        // const valor2 = this.operando2.length > 0 ? this.converteDigitosToNumber(this.operando2) : 0; 
-        let resultado: number = 0; // Iniciar como 0
-
-        //se tiver uma operação corrente
+    
+        const valor1 = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal); 
+        const valor2 = this.converteDigitosToNumber(this.operando2, this.operando2Sinal, this.operando2PosicaoSeparadorDecimal);  
+        let resultado: number = 0; 
+    
         if (this.operacaoCorrente != undefined) {
-        // if (this.operacaoCorrente === undefined) {
             if (this.operacaoCorrente === Operação.SOMA) {
                 resultado = valor1 + valor2;
-
-                // this.operando1
             } else if (this.operacaoCorrente === Operação.SUBTRAÇÃO) {
                 resultado = valor1 - valor2;
             } else if (this.operacaoCorrente === Operação.MULTIPLICAÇÃO) {
@@ -117,45 +85,82 @@ export default class CpuA4 implements Cpu {
                     resultado = valor1 / valor2;
                 }
             } else if (this.operacaoCorrente === Operação.RAIZ_QUADRADA) {
-                resultado = Math.sqrt(valor1);
+                this.calcularRaiz()
+                return;
             }
-
-            this.operando1 = this.converteNumberToDigitos(resultado)
-            this.operando1Sinal = resultado>0?Sinal.POSITIVO:Sinal.NEGATIVO;
-
-            this.mostreDigitos(this.operando1, this.operando1Sinal)
-
-            // this.operando1 = this.converteNumberToDigitos(resultado); // O resultado agora é o próximo operando1
-            // this.operando2 = []; // Limpa o segundo operando para permitir nova entrada
-            // this.operacaoCorrente = undefined; // Reseta a operação para receber uma nova
-        
-            // console.log(resultado);
-        
-            // Armazena o resultado para operações contínuas
+    
+            this.operando1 = this.converteNumberToDigitos(resultado);
+            this.operando1Sinal = resultado < 0 ? Sinal.NEGATIVO : Sinal.POSITIVO;
+    
+            this.mostreDigitos(this.operando1, this.operando1Sinal); 
         }
-      
-        } 
+    }
+    
+
+    private calcularRaiz(){
+        let numeroRaiz;
+        if(this.operacaoCorrente === undefined){
+            numeroRaiz = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal)
+        } else{
+            numeroRaiz = this.converteDigitosToNumber(this.operando2, this.operando2Sinal, this.operando2PosicaoSeparadorDecimal)
+        }
+
+        if (numeroRaiz >= 0){
+            let resultado = Math.sqrt(numeroRaiz)
+            const resultadoRaiz = this.converteNumberToDigitos(resultado)
+            if (this.operacaoCorrente === undefined){
+                this.operando1 = resultadoRaiz
+                this.operando1Sinal = resultado<0?Sinal.NEGATIVO:Sinal.POSITIVO
+                this.mostreDigitos(this.operando1 , this.operando1Sinal)
+            }else{
+                this.operando2 = resultadoRaiz
+                this.operando2Sinal = resultado<0?Sinal.NEGATIVO:Sinal.POSITIVO
+                this.mostreDigitos(this.operando2 , this.operando2Sinal)
+            
+            }
+        }
+ 
+    }
+
+    // private mostreDigitos(digitos: Digito[], sinal: Sinal): void {
+    //     this.tela.limpe();
+    //     this.tela.mostreSinal(sinal); 
+    //     digitos.forEach(digito => {
+    //         this.tela.mostre(digito); 
+    //     });
+    // }
+
+    // private mostreDigitos(digitos: Digito[], sinal: Sinal): void{
+    //     this.tela.limpe()
+    //     digitos.forEach(digito => {
+    //         this.tela.mostre(digito)
+    //     });
+    //     this.tela.mostreSinal(sinal)
+    // }
 
     private mostreDigitos(digitos: Digito[], sinal: Sinal): void{
         this.tela.limpe()
+        this.tela.mostreSinal(sinal)
         digitos.forEach(digito => {
             this.tela.mostre(digito)
         });
-        this.tela.mostreSinal(sinal)
     }
 
+    
 
     recebaOperacao(operação: Operação): void {
-        // Se já existe uma operação corrente, finalize o cálculo atual antes de continuar
         if (this.operacaoCorrente != undefined && this.operando2.length > 0) {
             this.calcular();
             
             
 
-            // this.controle.IGUAL();  // Execute a operação atual antes de definir a próxima
+            // this.controle.IGUAL();  
+        }
+        if (this.operacaoCorrente === undefined){
+            this.calcularRaiz()
+            return;
         }
 
-        // Defina a nova operação corrente
         this.operacaoCorrente = operação;
         this.historioControle = undefined;
     }
@@ -180,17 +185,17 @@ export default class CpuA4 implements Cpu {
                         }else{
                             this.memoriaLeitura()
                         }
-            case Controle.SEPARADOR_DECIMAL: //aqui tem que usar operando corrente???
+            case Controle.SEPARADOR_DECIMAL: 
                     if (this.operacaoCorrente === undefined){
                         if (!this.operando1PosicaoSeparadorDecimal) {
                             this.operando1PosicaoSeparadorDecimal = this.operando1.length;
-                            this.tela.mostreSeparadorDecimal() // Define a posição do decimal
+                            this.tela.mostreSeparadorDecimal() 
                         }
                     }
                     else{
                         if (this.operando2PosicaoSeparadorDecimal) {
                             this.operando2PosicaoSeparadorDecimal = this.operando2.length;
-                            this.tela.mostreSeparadorDecimal() // Define a posição do decimal    
+                            this.tela.mostreSeparadorDecimal()  
                         }
                         break
                 
@@ -199,25 +204,24 @@ export default class CpuA4 implements Cpu {
             this.historioControle = controle;
         }
     }
-   //não sei se ta certo pq não consigo testar
-
-        percentue(): void {
-            if (this.operando1.length === 0 || this.operacaoCorrente === undefined) {
-                return; 
-            }
-        
-            let numero1: number = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
-            let numero2: number = this.converteDigitosToNumber(this.operando2, this.operando2Sinal, this.operando2PosicaoSeparadorDecimal);
-        
-            let resultado = (numero1 * numero2) / 100;
-        
-            this.operando2 = this.converteNumberToDigitos(resultado); 
-            this.mostreDigitos(this.operando2, this.operando2Sinal); 
-            this.recebaControle(Controle.IGUAL); 
+ 
+    percentue(): void {
+        if (this.operando1.length === 0 || this.operacaoCorrente === undefined) {
+            return; 
         }
-        
+    
 
-        reinicie(): void {
+        let numero1: number = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
+        let numero2: number = this.converteDigitosToNumber(this.operando2, this.operando2Sinal, this.operando2PosicaoSeparadorDecimal);
+        let resultado = (numero1 * numero2) / 100;
+    
+        this.operando2 = this.converteNumberToDigitos(resultado);
+        this.mostreDigitos(this.operando2, this.operando2Sinal);
+        this.recebaControle(Controle.IGUAL);
+    }
+    
+    
+          reinicie(): void {
             // this.tela.limpe();
             // this.tela.mostre(Digito.ZERO);
             this.operando1 = [];

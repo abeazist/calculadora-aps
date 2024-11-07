@@ -5,7 +5,7 @@ export default class TelaA4 implements Tela {
         console.log('●')
     }
     mostreSinal(sinal: Sinal): void {
-        console.log('▬')
+        // console.log('▬')
     }
     mostreMemoria(): void {
         console.log("M   M\nMM MM\nM M M\nM   M\nM   M\n");
