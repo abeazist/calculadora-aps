@@ -31,12 +31,12 @@ cpu.reinicie()
 
 // Testando a CPU
 cpu.definaTela(tela);
-//new TestadorCpu(cpu).teste123Soma456(); //TESTE
+new TestadorCpu(cpu).teste123Soma456(); //TESTE
 // new TestadorCpu(cpu).teste12Soma34Soma56(); //TESTE
 // new TestadorCpu(cpu).testeNumeroNegativo();
 // new TestadorCpu(cpu).testeMemoria();
 // new TestadorCpu(cpu).testeNumeroDecimal();
-new TestadorCpu(cpu).testeRaiz();
+// new TestadorCpu(cpu).testeRaiz(); descomentarei dps
 //new TestadorCpu(cpu).testePorcentagem();
 
 

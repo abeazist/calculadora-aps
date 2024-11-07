@@ -236,10 +236,10 @@ export default class CpuA4 implements Cpu {
         }
     
         private memoriaMais(): void {
-            this.recebaControle(Controle.IGUAL)
             const valorAtual = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
             this.memoria += valorAtual;
             this.tela.mostreMemoria()
+            this.recebaControle(Controle.IGUAL)
         }
 
         private memoriaMenos(): void {

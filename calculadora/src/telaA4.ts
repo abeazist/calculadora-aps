@@ -56,11 +56,11 @@ export default class TelaA4 implements Tela {
                 console.log("9999\n9  9\n9999\n   9\n9999\n");
                 break;
             default:
-                console.log("Dígito inválido");
+                // console.log("Dígito inválido");
                 // console.log("oi")
 
         }
-        console.log(digito)
+        // console.log(digito)
     }
     limpe(): void {
         // console.clear();
