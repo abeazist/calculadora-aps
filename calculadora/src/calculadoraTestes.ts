@@ -136,56 +136,62 @@ e) 1,2,3,=,1,=       m=0 e resultado=1
       
       // TESTE RAIZ
       
-      testeRaiz(){
-        console.log("testando raiz");
-        [Digito.NOVE].forEach((element) => {
-          this.cpu.recebaDigito(element);
-        });
-        this.cpu.recebaOperacao(Operação.RAIZ_QUADRADA);
-        this.cpu.recebaControle(Controle.IGUAL);
-        console.log("passou")
-      }
+      // testeRaiz(){
+      //   console.log("testando raiz");
+      //   [Digito.NOVE].forEach((element) => {
+      //     this.cpu.recebaDigito(element);
+      //   });
+      //   this.cpu.recebaOperacao(Operação.RAIZ_QUADRADA);
+      //   this.cpu.recebaControle(Controle.IGUAL);
+      //   console.log("passou")
+      // }
       
       
-//       // Testando a operação de porcentagem
-//       testePorcentagem() {
-//         console.log("= Testando porcentagem ===========================");
+    //   testePorcentagem() {
+    //     console.log("= Testando operação de porcentagem ===========================");
+    
+    //     // Teste: 50% de 100
+    //     console.log("Entrada: 50% de 100");
+    
+    //     // Passo 1: Digitar 50
+    //     this.cpu.recebaDigito(Digito.CINCO);  // 5
+    //     this.cpu.recebaDigito(Digito.ZERO);   // 0
         
-//         // Primeiro número: 50
-//         this.cpu.recebaDigito(Digito.CINCO);  // 5
-//         this.cpu.recebaDigito(Digito.ZERO);   // 0
+    //     // Passo 2: Selecionar a operação de porcentagem (%)
+    //     this.cpu.recebaOperacao(Operação.PERCENTUAL);
         
-//         // Operação de porcentagem: 50%
-//         this.cpu.recebaOperacao(Operação.PERCENTUAL);
-        
-//   // Segundo número: 100
-//   this.cpu.recebaDigito(Digito.CINCO);  // 1
-//   this.cpu.recebaDigito(Digito.ZERO);   // 0
-  
-//   // Calculando o resultado (igual)
+    //     // Passo 3: Digitar 100
+    //     this.cpu.recebaDigito(Digito.CINCO);  // 1
+    //     this.cpu.recebaDigito(Digito.ZERO);   // 0
+    
+    //     // Passo 4: Pressionar "=" para calcular o resultado
+    //     this.cpu.recebaControle(Controle.IGUAL);
+    
+    //     // Passo 5: Mostrar o resultado automaticamente na tela
+    //     console.log("Resultado esperado: 50");
+    //     console.log("Resultado obtido: ", this.cpu.obtenhaTela().toString());  // Mostra a tela de resultado
+    // }
+    
+    
+
+
+
+// testeNumeroNegativo() {
+//   console.log("Teste de Números Negativos");
+
+//   // Testando a entrada de -3 + 5
+//   // O primeiro número será negativo
+//   this.cpu.recebaDigito(Digito.TRÊS); // 3
+//   this.cpu.recebaOperacao(Operação.SUBTRAÇÃO); // O número deve ser negativo
+
+//   // Agora adiciona o número 5
+//   this.cpu.recebaDigito(Digito.CINCO); // 5
+
+//   // Realiza o cálculo
 //   this.cpu.recebaControle(Controle.IGUAL);
-  
 
+//   // Esperado: -3 + 5 = 2
 // }
-
-
-
-testeNumeroNegativo() {
-  console.log("Teste de Números Negativos");
-
-  // Testando a entrada de -3 + 5
-  // O primeiro número será negativo
-  this.cpu.recebaDigito(Digito.TRÊS); // 3
-  this.cpu.recebaOperacao(Operação.SUBTRAÇÃO); // O número deve ser negativo
-
-  // Agora adiciona o número 5
-  this.cpu.recebaDigito(Digito.CINCO); // 5
-
-  // Realiza o cálculo
-  this.cpu.recebaControle(Controle.IGUAL);
-
-  // Esperado: -3 + 5 = 2
-}
 
 
 
