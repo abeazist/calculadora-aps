@@ -36,7 +36,7 @@ cpu.reinicie()
 
 // new TestadorCpu(cpu).testeNumeroNegativo();
 
-new TestadorCpu(cpu).testeNumeroDecimal();
+// new TestadorCpu(cpu).testeNumeroDecimal();
 // new TestadorCpu(cpu).testeRaiz(); //descomentarei dps
 // new TestadorCpu(cpu).testePorcentagem();
 
