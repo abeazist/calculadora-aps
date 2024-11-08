@@ -36,88 +36,72 @@ export class TestadorCpu {
   }
 
   teste123Soma456() {
-   console.log("= Testando 123 + 456 ===========================");
-   [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
-     this.cpu.recebaDigito(element);
-   });
-   this.cpu.recebaOperacao(Operação.SOMA);
-   [Digito.QUATRO, Digito.CINCO, Digito.SEIS].forEach((element) => {
-     this.cpu.recebaDigito(element);
-   });
-   this.cpu.recebaControle(Controle.IGUAL);
-   
+    console.log("= Testando 123 + 456 ===========================");
+    [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+      this.cpu.recebaDigito(element);
+    });
+    this.cpu.recebaOperacao(Operação.SOMA);
+    [Digito.QUATRO, Digito.CINCO, Digito.SEIS].forEach((element) => {
+      this.cpu.recebaDigito(element);
+    });
+    this.cpu.recebaControle(Controle.IGUAL);
+
+  }
+
+  testeMemoria() {
+    console.log("teste memória");
+    [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+      this.cpu.recebaDigito(element);
+    });
+    this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
+    this.cpu.recebaOperacao(Operação.SOMA);
+    [Digito.UM].forEach((element) => {
+      this.cpu.recebaDigito(element);
+    });
+    this.cpu.recebaControle(Controle.IGUAL);
+    console.log("passou")
+  }
+
+  // testeMemoria2() {
+  //   console.log("teste memória");
+  //   [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+  //     this.cpu.recebaDigito(element);
+  //   });
+  //   this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
+  //   [Digito.UM].forEach((element) => {
+  //     this.cpu.recebaDigito(element);
+  //   });
+  //   this.cpu.recebaControle(Controle.IGUAL);
+  //   console.log("passou")
+  // }
+
+  /*    1,2,3,M+,+,1,=    m=123 e resultado=124
+  b) 1,2,3,M+,1,=      m=123 e resultado=1
+  c) 1,2,3,M+,1,+,1,=  m=123 e resuiltado=2
+  d) 1,2,3,M+,+,1,M+,=  m=247 e resuiltado=124
+  e) 1,2,3,=,1,=       m=0 e resultado=1
+    */
+
+
+
+
+
+  // NUMERO DECIMAL
+
+  testeNumeroDecimal() {
+    console.log("Teste Números Decimais");
+    this.cpu.recebaDigito(Digito.UM); // 1
+    this.cpu.recebaControle(Controle.SEPARADOR_DECIMAL); // Adiciona separador decimal
+    this.cpu.recebaDigito(Digito.CINCO);
+    this.cpu.recebaDigito(Digito.DOIS) // 5
+
+
   }
 
 
 
-
-
-  testeMemoria(){
-    console.log("teste memória");
-    [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
-      this.cpu.recebaDigito(element);
-      // console.log(Digito)
-    });
-    this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
-    this.cpu.recebaOperacao(Operação.SOMA);
-    console.log("limpe");
-    [Digito.UM].forEach((element) => {
-      this.cpu.recebaDigito(element);
-      // console.log(Digito)
-    });
-    this.cpu.recebaControle(Controle.IGUAL);
-    
-    console.log("passou")
-
-/*    1,2,3,M+,+,1,=    m=123 e resultado=124
-b) 1,2,3,M+,1,=      m=123 e resultado=1
-c) 1,2,3,M+,1,+,1,=  m=123 e resuiltado=2
-d) 1,2,3,M+,+,1,M+,=  m=247 e resuiltado=124
-e) 1,2,3,=,1,=       m=0 e resultado=1
-  */
-   }
-
-
-
-
-
-
-  //  testeNumeroNegativo(){
-  //    console.log("Teste Negativo");
-  //    [Digito.UM, Digito.ZERO].forEach((element) => {
-  //      this.cpu.recebaDigito(element);
-  //      // console.log(Digito)
-  //    })
-  //    this.cpu.recebaOperacao(Operação.SUBTRAÇÃO);
-  //    [Digito.UM, Digito.DOIS].forEach((element) => {
-  //      this.cpu.recebaDigito(element);
-  //    });
-  //    this.cpu.recebaControle(Controle.IGUAL)
-     
-  //  }
-
-
-
-
-  
-  
-
-// NUMERO DECIMAL
-
-  // testeNumeroDecimal(){
-  //  console.log("Teste Números Decimais");
-  //  this.cpu.recebaDigito(Digito.UM); // 1
-  //  this.cpu.recebaControle(Controle.SEPARADOR_DECIMAL); // Adiciona separador decimal
-  //  this.cpu.recebaDigito(Digito.CINCO);
-  //  this.cpu.recebaDigito(Digito.DOIS) // 5
-
-
-  // }
-
-
-
   // TESTE SOMA
-  
+
   // teste12Soma34Soma56() {
   //    console.log("= Testando 12 + 34 + 56 ===========================");
   //  [Digito.UM, Digito.DOIS].forEach((element) => {
@@ -133,65 +117,57 @@ e) 1,2,3,=,1,=       m=0 e resultado=1
   //      this.cpu.recebaControle(Controle.IGUAL);
   //      // this.cpu.recebaControle(Controle.IGUAL);
   //     }
-      
-      // TESTE RAIZ
-      
-      // testeRaiz(){
-      //   console.log("testando raiz");
-      //   [Digito.NOVE].forEach((element) => {
-      //     this.cpu.recebaDigito(element);
-      //   });
-      //   this.cpu.recebaOperacao(Operação.RAIZ_QUADRADA);
-      //   this.cpu.recebaControle(Controle.IGUAL);
-      //   console.log("passou")
-      // }
-      
-      
-    //   testePorcentagem() {
-    //     console.log("= Testando operação de porcentagem ===========================");
+
+  // TESTE RAIZ
+
+  // testeRaiz(){
+  //   console.log("testando raiz");
+  //   [Digito.NOVE].forEach((element) => {
+  //     this.cpu.recebaDigito(element);
+  //   });
+  //   this.cpu.recebaOperacao(Operação.RAIZ_QUADRADA);
+  //   this.cpu.recebaControle(Controle.IGUAL);
+  //   console.log("passou")
+  // }
+
+
+  testePorcentagem() {
+    console.log("= Testando operação de porcentagem ===========================");
+
+    console.log("Entrada: 100 + 10%");
+
+    this.cpu.recebaDigito(Digito.UM);  // 5
+    this.cpu.recebaDigito(Digito.ZERO);   // 0
+    this.cpu.recebaDigito(Digito.ZERO);   // 0
+
+    this.cpu.recebaOperacao(Operação.SOMA);
     
-    //     // Teste: 50% de 100
-    //     console.log("Entrada: 50% de 100");
+    this.cpu.recebaDigito(Digito.UM);  // 5
+    this.cpu.recebaDigito(Digito.ZERO);   // 0
+   this.cpu.recebaOperacao(Operação.PERCENTUAL);
+
+  
+  //  this.cpu.recebaControle(Controle.IGUAL);
+
     
-    //     // Passo 1: Digitar 50
-    //     this.cpu.recebaDigito(Digito.CINCO);  // 5
-    //     this.cpu.recebaDigito(Digito.ZERO);   // 0
-        
-    //     // Passo 2: Selecionar a operação de porcentagem (%)
-    //     this.cpu.recebaOperacao(Operação.PERCENTUAL);
-        
-    //     // Passo 3: Digitar 100
-    //     this.cpu.recebaDigito(Digito.CINCO);  // 1
-    //     this.cpu.recebaDigito(Digito.ZERO);   // 0
+    console.log("Resultado esperado: 110");
+    // console.log("Resultado obtido: ", this.cpu.obtenhaTela().toString());  
+  }
+
+  testeNumeroNegativo() {
+    console.log("Teste de Números Negativos")
+
     
-    //     // Passo 4: Pressionar "=" para calcular o resultado
-    //     this.cpu.recebaControle(Controle.IGUAL);
+    this.cpu.recebaDigito(Digito.TRÊS); // 3
+    this.cpu.recebaOperacao(Operação.SUBTRAÇÃO); 
+   
+    this.cpu.recebaDigito(Digito.CINCO); // 5
+
     
-    //     // Passo 5: Mostrar o resultado automaticamente na tela
-    //     console.log("Resultado esperado: 50");
-    //     console.log("Resultado obtido: ", this.cpu.obtenhaTela().toString());  // Mostra a tela de resultado
-    // }
-    
-    
+    this.cpu.recebaControle(Controle.IGUAL);
 
-
-
-// testeNumeroNegativo() {
-//   console.log("Teste de Números Negativos");
-
-//   // Testando a entrada de -3 + 5
-//   // O primeiro número será negativo
-//   this.cpu.recebaDigito(Digito.TRÊS); // 3
-//   this.cpu.recebaOperacao(Operação.SUBTRAÇÃO); // O número deve ser negativo
-
-//   // Agora adiciona o número 5
-//   this.cpu.recebaDigito(Digito.CINCO); // 5
-
-//   // Realiza o cálculo
-//   this.cpu.recebaControle(Controle.IGUAL);
-
-//   // Esperado: -3 + 5 = 2
-// }
+    // Esperado: 3 - 5 = -2
+  }
 
 
 

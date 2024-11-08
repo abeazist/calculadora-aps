@@ -6,6 +6,13 @@ export default class TelaA4 implements Tela {
     }
     mostreSinal(sinal: Sinal): void {
         // console.log('▬')
+        switch (sinal){
+            case Sinal.NEGATIVO:
+                console.log('▬')
+                break;
+            case Sinal.POSITIVO:
+                console.log('➕')
+        }
     }
     mostreMemoria(): void {
         console.log("M   M\nMM MM\nM M M\nM   M\nM   M\n");
@@ -25,9 +32,9 @@ export default class TelaA4 implements Tela {
                 break;
 
             case Digito.DOIS:
-                console.log("2222\n   2\n2222\n   2\n2222\n");
-                break;
-
+                console.log("2222\n   2\n2222\n2\n2222");
+                break; 
+           
             case Digito.TRÊS:
                 console.log("3333\n   3\n 333\n   3\n3333\n");
                 break;
@@ -63,8 +70,8 @@ export default class TelaA4 implements Tela {
         // console.log(digito)
     }
     limpe(): void {
-        // console.clear();
-        console.log("tela.limpe")
+        console.clear();
+        // console.log("tela.limpe")
     }
 
 }

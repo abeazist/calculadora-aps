@@ -11,7 +11,7 @@ import {TestadorTela } from "./calculadoraTestes"; //TESTE
 import { TestadorCpu } from "./calculadoraTestes"; //TESTE
 
 import CpuA4 from "./cpuA4";
-import TelaA4 from "./telaA4";
+import TelaA4 from "./telaA4a";
  
 const tela = new TelaA4()
 
@@ -30,14 +30,17 @@ const cpu = new CpuA4(tela)
 cpu.reinicie()
 
 // Testando a CPU
-cpu.definaTela(tela);
-new TestadorCpu(cpu).teste123Soma456(); //TESTE
+// cpu.definaTela(tela);
+// new TestadorCpu(cpu).teste123Soma456(); 
 // new TestadorCpu(cpu).teste12Soma34Soma56(); //TESTE
+
 // new TestadorCpu(cpu).testeNumeroNegativo();
+
 // new TestadorCpu(cpu).testeMemoria();
 // new TestadorCpu(cpu).testeNumeroDecimal();
-// new TestadorCpu(cpu).testeRaiz(); descomentarei dps
-//new TestadorCpu(cpu).testePorcentagem();
+// new TestadorCpu(cpu).testeMemoria2();
+// new TestadorCpu(cpu).testeRaiz(); //descomentarei dps
+new TestadorCpu(cpu).testePorcentagem();
 
 
 
