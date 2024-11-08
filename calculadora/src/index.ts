@@ -36,12 +36,17 @@ cpu.reinicie()
 
 // new TestadorCpu(cpu).testeNumeroNegativo();
 
-new TestadorCpu(cpu).testeMemoria();
 // new TestadorCpu(cpu).testeNumeroDecimal();
-// new TestadorCpu(cpu).testeMemoriaMenos();
-// new TestadorCpu(cpu).testeMemoriaMais2();
 // new TestadorCpu(cpu).testeRaiz(); //descomentarei dps
 // new TestadorCpu(cpu).testePorcentagem();
+
+//MEMORIAS TESTES
+
+// new TestadorCpu(cpu).testeMemoria();
+// new TestadorCpu(cpu).testeMemoriaMais2caso();
+// new TestadorCpu(cpu).testeMemoriaMenos();
+new TestadorCpu(cpu).testeMrc()
+
 
 
 

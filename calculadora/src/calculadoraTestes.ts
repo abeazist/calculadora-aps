@@ -49,7 +49,7 @@ export class TestadorCpu {
   }
 
 
-//MEMÓRIA
+//MEMÓRIA+
 
   testeMemoria() {
     console.log("teste memória");
@@ -64,6 +64,20 @@ export class TestadorCpu {
     this.cpu.recebaControle(Controle.IGUAL);
   }
 
+  testeMemoriaMais2caso() {
+    console.log("teste memória mais 2caso");
+    [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+      this.cpu.recebaDigito(element);
+    });
+    this.cpu.recebaControle(Controle.IGUAL);
+    [Digito.UM].forEach((element) =>{
+      this.cpu.recebaDigito(element)
+    });
+    this.cpu.recebaControle(Controle.IGUAL)
+  }
+
+
+//MEMORIA -
   testeMemoriaMenos() {
     console.log("teste memória menos");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
@@ -76,18 +90,23 @@ export class TestadorCpu {
     });
     this.cpu.recebaControle(Controle.IGUAL);
   }
-  testeMemoriaMais2() {
-    console.log("teste memória mais 2");
+
+  //MRC
+  
+  testeMrc(){
+    console.log("teste MRC");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
       this.cpu.recebaDigito(element);
     });
-    this.cpu.recebaControle(Controle.IGUAL);
-    [Digito.UM].forEach((element) =>{
-      this.cpu.recebaDigito(element)
+    this.cpu.recebaControle(Controle.MEMÓRIA_SOMA);
+    this.cpu.recebaOperacao(Operação.SOMA);
+    [Digito.UM].forEach((element) => {
+      this.cpu.recebaDigito(element);
     });
-    this.cpu.recebaControle(Controle.IGUAL)
+    this.cpu.recebaControle(Controle.MEMÓRIA_LEITURA_LIMPEZA);
+    this.cpu.recebaControle(Controle.IGUAL);
+  
   }
-
 
 
   // NUMERO DECIMAL
