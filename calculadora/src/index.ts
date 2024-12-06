@@ -47,6 +47,6 @@ cpu.reinicie()
 // new TestadorCpu(cpu).testeMemoriaMenos();
 // new TestadorCpu(cpu).testeMrc();
 
-
-
+    
+new TestadorCpu(cpu, false, true).executeTodosTestes()
 
