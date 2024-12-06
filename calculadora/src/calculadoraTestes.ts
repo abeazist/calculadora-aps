@@ -193,7 +193,6 @@
 //   }
 
 
-
 // }
 
 import { Controle, Cpu, Digito, Operação, Sinal, Tela } from "./calculadora";

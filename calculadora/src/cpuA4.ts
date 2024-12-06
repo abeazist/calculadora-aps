@@ -10,6 +10,9 @@ export default class CpuA4 implements Cpu {
     operando2Sinal: Sinal = Sinal.POSITIVO;
     operando2PosicaoSeparadorDecimal: number = 0;
     memoria: number = 0;
+    operando1Completo = false
+    operando2Completo = false
+
     historioControle: Controle | undefined = undefined;
     operacaoCorrente: Operação | undefined = undefined;
 
@@ -20,14 +23,24 @@ export default class CpuA4 implements Cpu {
 
 
     recebaDigito(digito: Digito): void {
-
         if (this.operacaoCorrente === undefined) {
+            if(this.operando1Completo){
+                this.operando1= [];
+                this.operando1Sinal = Sinal.POSITIVO;
+                this.operando1PosicaoSeparadorDecimal = 0;
+                this.operando1Completo = false
+            }
             this.operando1.push(digito);
         } else {
+            if(this.operando2Completo){
+                this.operando2= [];
+                this.operando2Sinal = Sinal.POSITIVO;
+                this.operando2PosicaoSeparadorDecimal = 0;
+                this.operando2Completo = false
+            }
             this.operando2.push(digito);
         }
-
-
+        
         if (this.operando1.length === 1 || this.operando2.length === 1) {
             this.tela.limpe();
         }
@@ -86,11 +99,13 @@ export default class CpuA4 implements Cpu {
 
             default:
         }
-
         this.operando1 = this.converteNumberToDigitos(resultado);
         this.operando1Sinal = resultado < 0 ? Sinal.NEGATIVO : Sinal.POSITIVO;
+        this.operando1Completo = true
+        
 
         this.mostreDigitos(this.operando1, this.operando1Sinal);
+        console.log(valor1,valor2,this.operando1,this.operando2,resultado)
     }
 
 
@@ -108,10 +123,12 @@ export default class CpuA4 implements Cpu {
             if (this.operacaoCorrente === undefined) {
                 this.operando1 = resultadoRaiz
                 this.operando1Sinal = resultado < 0 ? Sinal.NEGATIVO : Sinal.POSITIVO
+                this.operando1Completo = true
                 this.mostreDigitos(this.operando1, this.operando1Sinal)
             } else {
                 this.operando2 = resultadoRaiz
                 this.operando2Sinal = resultado < 0 ? Sinal.NEGATIVO : Sinal.POSITIVO
+                this.operando2Completo = true
                 this.mostreDigitos(this.operando2, this.operando2Sinal)
 
             }
@@ -150,16 +167,16 @@ export default class CpuA4 implements Cpu {
             case Operação.RAIZ_QUADRADA:
                 this.calculeRaiz();
                 break;
-                case Operação.PERCENTUAL:
+            case Operação.PERCENTUAL:
                     this.calculePorcentagem();
                     break;
-                    default:
+            default:
                         if (this.operacaoCorrente != undefined && this.operando2.length > 0) {
                             this.calcule();
                         }
                         this.operacaoCorrente = operação;
                         break;
-                    }
+            }
                     
                     this.historioControle = undefined;
                 }
@@ -226,6 +243,7 @@ export default class CpuA4 implements Cpu {
                 console.log('R2=',resultado,porcentagem)
                 this.operando1 = this.converteNumberToDigitos(resultado);
                 this.operando1Sinal = resultado < 0 ? Sinal.NEGATIVO : Sinal.POSITIVO;
+                this.operando1Completo = true
                 console.log("R="+resultado);
                 
                 this.mostreDigitos(this.operando1, this.operando1Sinal);
@@ -244,6 +262,7 @@ export default class CpuA4 implements Cpu {
                     resultado = numero1 / (numero2 / 100);
         
                     this.operando1 = this.converteNumberToDigitos(resultado);
+                    this.operando1Completo = true
                     this.operando1Sinal = resultado < 0 ? Sinal.NEGATIVO : Sinal.POSITIVO;
                     this.mostreDigitos(this.operando1, this.operando1Sinal);
                 }
@@ -255,13 +274,21 @@ export default class CpuA4 implements Cpu {
     }
 
     reinicie(): void {
-        // this.tela.limpe();
-        // this.tela.mostre(Digito.ZERO);
-        this.operando1 = [];
-        this.operando2 = [];
+        this.tela.limpe();
+        this.tela.mostre(Digito.ZERO);
+        this.operando1= [];
+        this.operando1Sinal = Sinal.POSITIVO;
+        this.operando1PosicaoSeparadorDecimal = 0;
+        this.operando2= [];
+        this.operando2Sinal = Sinal.POSITIVO;
+        this.operando2PosicaoSeparadorDecimal = 0;
+        this.memoria = 0;
+    
+        this.historioControle = undefined;
         this.operacaoCorrente = undefined;
     }
-    definaTela(tela: Tela): void {
+    
+  definaTela(tela: Tela): void {
         this.tela = tela;
     }
     obtenhaTela(): Tela {
@@ -269,26 +296,28 @@ export default class CpuA4 implements Cpu {
     }
 
     private memoriaMais(): void {
+        this.recebaControle(Controle.IGUAL)
         const valorAtual = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
         this.memoria += valorAtual;
         this.tela.mostreMemoria()
-        this.recebaControle(Controle.IGUAL)
     }
 
     private memoriaMenos(): void {
+        this.recebaControle(Controle.IGUAL)
         const valorAtual = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
         this.memoria -= valorAtual;
         console.log("M-")
-        this.recebaControle(Controle.IGUAL)
     }
 
     private memoriaLeitura(): void {
         if (this.operacaoCorrente === undefined) {
             this.operando1 = this.converteNumberToDigitos(this.memoria);
+            this.operando1Completo = true
             this.operando1Sinal = this.memoria >= 0 ? Sinal.POSITIVO : Sinal.NEGATIVO;
             this.mostreDigitos(this.operando1, this.operando1Sinal)
         } else {
             this.operando2 = this.converteNumberToDigitos(this.memoria);
+            this.operando2Completo = true
             this.operando2Sinal = this.memoria >= 0 ? Sinal.POSITIVO : Sinal.NEGATIVO
             this.mostreDigitos(this.operando2, this.operando2Sinal)
         }
