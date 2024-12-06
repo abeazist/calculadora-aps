@@ -33,3 +33,4 @@ export default class TelaX0Teste implements Tela {
     if (this.debug) console.log("Tela::limpe()");
   }
 }
+
