@@ -1,3 +1,4 @@
+import Decimal from "decimal.js";
 import { Controle, Cpu, Digito, Operação, Sinal, Tela } from "./calculadora";
 import TelaA4 from "./telaA4";
 
@@ -83,24 +84,27 @@ export default class CpuA4 implements Cpu {
             return;
         }
 
-        const valor1 = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
-        const valor2 = this.converteDigitosToNumber(this.operando2, this.operando2Sinal, this.operando2PosicaoSeparadorDecimal);
-        let resultado: number = 0;
+        const valor1: Decimal = new Decimal(this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal));
+        const valor2: Decimal = new Decimal(this.converteDigitosToNumber(this.operando2, this.operando2Sinal, this.operando2PosicaoSeparadorDecimal));
+        this.operando1Completo = true;
+        this.operando2Completo = true;
+
+        let resultado: Decimal = new Decimal(0);
 
         switch (this.operacaoCorrente) {
-            case Operação.SOMA: resultado = valor1 + valor2; break;
-            case Operação.SUBTRAÇÃO: resultado = valor1 - valor2; break;
-            case Operação.MULTIPLICAÇÃO: resultado = valor1 * valor2; break;
+            case Operação.SOMA: resultado = valor1.plus(valor2); break;
+            case Operação.SUBTRAÇÃO: resultado = valor1.minus(valor2); break;
+            case Operação.MULTIPLICAÇÃO: resultado = valor1.times(valor2); break;
             case Operação.DIVISÃO:
-                if (valor2 !== 0) {
-                    resultado = valor1 / valor2;
+                if (!valor2.eq(0)) {
+                    resultado = valor1.div(valor2);
                 }
                 break;
 
             default:
         }
-        this.operando1 = this.converteNumberToDigitos(resultado);
-        this.operando1Sinal = resultado < 0 ? Sinal.NEGATIVO : Sinal.POSITIVO;
+        this.operando1 = this.converteNumberToDigitos(resultado.toNumber());
+        this.operando1Sinal = resultado.isNegative()? Sinal.NEGATIVO : Sinal.POSITIVO;
         this.operando1Completo = true
         
 
@@ -299,14 +303,18 @@ export default class CpuA4 implements Cpu {
         this.recebaControle(Controle.IGUAL)
         const valorAtual = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
         this.memoria += valorAtual;
+        this.operando1Completo = true;
+        this.operando2Completo = true;
         this.tela.mostreMemoria()
     }
 
     private memoriaMenos(): void {
         this.recebaControle(Controle.IGUAL)
         const valorAtual = this.converteDigitosToNumber(this.operando1, this.operando1Sinal, this.operando1PosicaoSeparadorDecimal);
+        this.operando1Completo = true;
+        this.operando2Completo = true;
         this.memoria -= valorAtual;
-        console.log("M-")
+    
     }
 
     private memoriaLeitura(): void {
