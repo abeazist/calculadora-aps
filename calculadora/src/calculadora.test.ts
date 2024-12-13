@@ -11,7 +11,8 @@ describe("Testando a calculadora", () => {
     cpu.reinicie()
   })
 
-
+  
+  // TESTE GIOVANA
 
   test("testar 123+456", () => {
     // console.log("= Testando 123 + 456 ===========================");
@@ -32,7 +33,6 @@ describe("Testando a calculadora", () => {
     
   })
   
-  // TESTE GI
   test("testar 12+34+56", () => {
     console.log("= Testando 12 + 34 + 56 ===========================");
     [Digito.UM, Digito.DOIS].forEach((element) => {
@@ -311,8 +311,6 @@ test("teste M+ caso b", () => {
     cpu.recebaControle(Controle.IGUAL);
     expect(tela.digitos).toBe("2")
   })
-
-
 
 
   //4
