@@ -135,7 +135,7 @@ describe("Testando a calculadora", () => {
 
 
 
-/// TESTE NANDA
+/// TESTE FERNANDA
 //1
   test("testar 4+6-2", () => {
     console.log("=TESTE 4 + 6 - 2=======");
@@ -257,7 +257,8 @@ describe("Testando a calculadora", () => {
 
 
 
-/// TESTE BEATRIZ DA MEMÓRIA
+/// TESTE BEATRIZ 
+//1
   test("teste M+ caso a", () => {
     console.log("TESTE 1,2,3,M+,+,1,=    m=123 e resultado=124");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
@@ -275,9 +276,10 @@ describe("Testando a calculadora", () => {
 
 })
 
-  test("teste M+ caso b", () => {
-    console.log(" TESTE 1,2,3,M+,1,=   m=123 e resultado=1");
-    [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+//2
+test("teste M+ caso b", () => {
+  console.log(" TESTE 1,2,3,M+,1,=   m=123 e resultado=1");
+  [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
       cpu.recebaDigito(element);
     });
     cpu.recebaControle(Controle.MEMÓRIA_SOMA);
@@ -290,7 +292,30 @@ describe("Testando a calculadora", () => {
     expect(tela.sinal).toBe(Sinal.POSITIVO)
     expect(tela.error).toBeFalsy()
   })
+  
+  //3
+  test("teste M+ caso c", () => {
+    console.log("Teste M+ caso c");
+    [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
+      cpu.recebaDigito(element);
+    });
+    cpu.recebaControle(Controle.MEMÓRIA_SOMA);
+    [Digito.UM].forEach((element) =>{
+      cpu.recebaDigito(element);
+    });
 
+    cpu.recebaOperacao(Operação.SOMA);
+    [Digito.UM].forEach((element) => {
+      cpu.recebaDigito(element);
+    });
+    cpu.recebaControle(Controle.IGUAL);
+    expect(tela.digitos).toBe("2")
+  })
+
+
+
+
+  //4
   test("teste MRC caso a ", () =>{
     console.log("teste MRC");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
@@ -305,6 +330,7 @@ describe("Testando a calculadora", () => {
      cpu.recebaControle(Controle.IGUAL);
   })
 
+  //5
   test("teste MRC caso b ", () =>{
     console.log("teste MRC");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
@@ -323,6 +349,7 @@ describe("Testando a calculadora", () => {
      cpu.recebaControle(Controle.IGUAL);
   })
 
+  //6
   test("Teste MRC caso c", () =>{
     console.log("1,2,3,M+,+,1,MRC,MRC,=  m=0 e resultado=246");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
@@ -343,6 +370,8 @@ describe("Testando a calculadora", () => {
     
   })
 
+
+  //7
   test("Teste M- caso que fiz", () =>{
     console.log("TESTE 1,2,3,M+,-,1,=   m=123 e resultado=122");
     [Digito.UM, Digito.DOIS, Digito.TRÊS].forEach((element) => {
