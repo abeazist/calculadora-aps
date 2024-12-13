@@ -386,5 +386,15 @@ test("teste M+ caso b", () => {
      expect(tela.error).toBeFalsy()
   })
 
+  test("Teste % caso a", () => {
+    console.log("Teste % caso a");
+    [Digito.UM, Digito.ZERO, Digito.ZERO].forEach((element) => {
+      cpu.recebaDigito(element);
+    });
+    cpu.recebaOperacao(Operação.PERCENTUAL)
+    cpu.recebaControle(Controle.IGUAL)
+
+    expect(tela.digitos).toBe("0")
+  })
   
 })
